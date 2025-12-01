@@ -1,0 +1,26 @@
+.carousel-item img {
+    object-fit: cover;
+    height: 500px;
+}
+.animal-card {
+    transition: transform 0.3s;
+}
+.animal-card:hover {
+    transform: translateY(-5px);
+}
+.jumbotron {
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6));
+    background-size: cover;
+    background-position: center;
+    color: white;
+    padding: 100px 0;
+    margin-bottom: 0;
+}
+footer {
+    background-color: #343a40;
+    color: white;
+}
+nav {
+    border: solid rgb(209, 197, 197) 2px;
+    border-radius: 9px;
+}

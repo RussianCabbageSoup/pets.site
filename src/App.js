@@ -1,25 +1,17 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+import Full_page_1 from "./components/first page/full_page_1";
+import Full_page_2 from "./components/second page/full_page_2";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
-
-export default App;
+function App() {                                                                                                  
+  return ( 
+    <div>
+      <Routes>                                                                                        
+        <Route path={'/'} element={<Full_page_1/>}/>
+        <Route path={'/foundAnimal'} element={<Full_page_2/>}/>
+      </Routes>    
+    </div>                                                    
+  );                                                                                                  
+}                                                                                                  
+                                                                                                  
+export default App;                                                                                                  
