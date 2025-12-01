@@ -2,7 +2,7 @@ import icon_human from '../images/icon/v.ico';
 import icon_phone from '../images/icon/phone.ico';
 import icon_mail from '../images/icon/mail.ico';
 import icon_lock from '../images/icon/z.ico';
-
+// gg
 function Modal () {
     return (
         <div>
