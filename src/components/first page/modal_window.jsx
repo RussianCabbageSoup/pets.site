@@ -2,8 +2,59 @@ import icon_human from '../images/icon/v.ico';
 import icon_phone from '../images/icon/phone.ico';
 import icon_mail from '../images/icon/mail.ico';
 import icon_lock from '../images/icon/z.ico';
-// gg
-function Modal () {
+import { useState } from 'react';
+
+function Modal (props) {
+
+    let [phone, setPhon]=useState('');
+    let [email, setEmail]=useState('');
+    let [success, setSuccess]=useState('none');
+    let [error, setError]=useState('none');
+    let [message, setMessage]=useState();
+
+    function changeData(e) {
+
+        e.preventDefault();
+
+        if (email != '') {
+
+            var myHeaders = new Headers();
+            myHeaders.append("Authorization", "Bearer "+localStorage.token);
+            myHeaders.append("Content-Type", "application/json");
+
+            var raw = JSON.stringify({"email": email});
+
+            var requestOptions = {
+                method: 'PATCH',
+                headers: myHeaders,
+                body: raw,
+            };
+
+            fetch("https://pets.xn--80ahdri7a.site/api/users/email", requestOptions)
+                .then(response => response.status)
+                .then(
+                    result => {console.log(result)
+                    switch (result) {
+                        case 200:
+                            setSuccess('block');
+                            setError('none')
+                            break;
+                        case 401:
+                            setError('block');
+                            setSuccess('none');
+                            setMessage('Пожалуйста авторизуйтесь')
+                            break;
+                        case 422:
+                            setError('block');
+                            setSuccess('none');
+                            setMessage('Пожалуйста введите корректный e-mail')
+                            break;
+                    }
+            })
+            .catch(error => console.log('error', error));
+        }
+    }
+    
     return (
         <div>
         <div className="modal fade" id="contacts" tabIndex={-1} aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -77,6 +128,8 @@ function Modal () {
             </div>
             </div>
         </div>
+
+
         <div className="modal fade" id="myPage" tabIndex={-1} aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div className="modal-dialog">
             <div className="modal-content">
@@ -85,15 +138,22 @@ function Modal () {
                 <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Закрыть" />
                 </div>
                 <div className="modal-body">
-                <ul className="list-group">
-                    <h5>Имя пользователя</h5>
+                    <div className="alert alert-success" role="alert" style={{display: success}}>
+                        Вы успешно сменили e-mail
+                    </div>
+                    <div className="alert alert-danger" role="alert" style={{display: error}}>
+                        {message}
+                    </div>
+
+                     <ul className="list-group">
+                    <h5>{props.data.first_name} {props.data.last_name}</h5>
                     <li className="list-group-item">
-                    email
-                    <input type="text" className="form-control" placeholder="Сменить почту" aria-label="Сменить почту" aria-describedby="addon-wrapping" />
+                    {props.data.email}
+                    <input type="email" className="form-control" placeholder="Сменить почту" aria-label="Сменить почту" aria-describedby="addon-wrapping" onChange={(e)=>setEmail(e.target.value)}/>
                     </li>
                     <li className="list-group-item">
-                    phone
-                    <input type="text" className="form-control" placeholder="Сменить телефон" aria-label="Сменить телефон" aria-describedby="addon-wrapping" />
+                    {props.data.phone}
+                    <input type="text" className="form-control" placeholder="Сменить телефон" aria-label="Сменить телефон" aria-describedby="addon-wrapping" onChange={(e)=>setPhon(e.target.value)}/>
                     </li>
                 </ul>
                 <div>
@@ -102,11 +162,13 @@ function Modal () {
                 </div>
                 <div className="modal-footer">
                 <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
-                <button type="button" className="btn btn-primary">Сохранить изменения</button>
+                <button type="button" onClick={(e)=>changeData(e)} className="btn btn-primary">Сохранить изменения</button>
                 </div>
             </div>
             </div>
         </div>
+
+
         <div className="modal fade" id="newPost" tabIndex={-1} aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div className="modal-dialog">
             <div className="modal-content">
