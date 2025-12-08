@@ -93,6 +93,18 @@ function Modal (props) {
             .catch(error => console.log('error', error));
         }
     }
+
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    function reg(event) {
+        'use strict'
+    
+        const form = document.getElementById('form')
+
+        event.preventDefault()
+        event.stopPropagation()
+    
+        form.classList.add('was-validated')    
+    }
     
     return (
         <div>
@@ -144,19 +156,19 @@ function Modal (props) {
                 </div>
                 <div className="input-group flex-nowrap mb-2">
                     <span className="input-group-text" id="addon-wrapping"><img src={icon_phone} /></span>
-                    <input type="text" className="form-control" placeholder="phone" aria-label="phone" aria-describedby="addon-wrapping" />
+                    <input type="tel" className="form-control" placeholder="phone" aria-label="phone" aria-describedby="addon-wrapping" />
                 </div>
                 <div className="input-group flex-nowrap mb-2">
                     <span className="input-group-text" id="addon-wrapping"><img src={icon_mail} /></span>
-                    <input type="text" className="form-control" placeholder="email" aria-label="email" aria-describedby="addon-wrapping" />
+                    <input type="email" className="form-control" placeholder="email" aria-label="email" aria-describedby="addon-wrapping" />
                 </div>
                 <div className="input-group flex-nowrap mb-2">
                     <span className="input-group-text" id="addon-wrapping"><img src={icon_lock} /></span>
-                    <input type="text" className="form-control" placeholder="password" aria-label="password" aria-describedby="addon-wrapping" />
+                    <input type="password" className="form-control" placeholder="password" aria-label="password" aria-describedby="addon-wrapping" />
                 </div>
                 <div className="input-group flex-nowrap mb-2">
                     <span className="input-group-text" id="addon-wrapping"><img src={icon_lock} /></span>
-                    <input type="text" className="form-control" placeholder="Подтвердите пароль" aria-label="Подтвердите пароль" aria-describedby="addon-wrapping" />
+                    <input type="password" className="form-control" placeholder="Подтвердите пароль" aria-label="Подтвердите пароль" aria-describedby="addon-wrapping" />
                 </div>
                 <div className="input-group flex-nowrap mb-2">
                     <input className="me-1" type="checkbox" />Я даю согласие на обработку персоналных данных
@@ -216,38 +228,76 @@ function Modal (props) {
                 <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Закрыть" />
                 </div>
                 <div className="modal-body">
-                <form>
-                    <div className="mb-3">
-                        <label htmlfor="type" className="form-control">Тип животного</label>
-                        <input type="text" name="type" id="type" placeholder='например: кот'/>
-                        <label htmlfor="name" className="form-control">Имя (если известно)</label>
-                        <input type="text" name="name" id="type" placeholder='например: Мурзик' />
-                        <label htmlfor="age" className="form-control">Возраст (примерно)</label>
-                        <input type="text" name="age" id="age" placeholder='например: 5 месяцев'/>
-                        <label htmlfor="gender" className="form-control">Пол</label>
-                            <select name="gender" id="gender">
-                               <option value="undefiend">не определен</option> 
-                               <option value="mele">мальчик</option> 
-                               <option value="female">девочка</option> 
-                            </select>
-                        <label htmlfor="date" className="form-control">Дата находки</label>
-                        <input type="date" name="date" id="date" />
-                        <label htmlfor="place" className="form-control">Место находки</label>
-                        <textarea className="form-control" id="message-text" defaultValue={""} placeholder='Нужно указать район'/>
-                        <label htmlFor="message-text" className="col-form-label">Введите описание найденного зверька и место, где вы его нашли:</label>
-                        <textarea className="form-control" id="message-text" defaultValue={""} />
-                        <label htmlfor="gender" className="form-control">Ваш номер телефона</label>
-                        <input type="tel" name="age" id="age" placeholder='начиная с 8'/>
-                    </div>
-                    <div className="mb-3">
-                    <label htmlFor="file" className="col-form-label">Добавьте фото</label><br />
-                    <input type="file" id="file" />
-                    </div>
-                </form>
+                    <form className="row g-3 needs-validation" noValidate id='form' onSubmit={(e)=>reg(e)} >
+                        <div className="col-md-4">
+                            <label htmlFor="validationCustom01" className="form-label">Тип животного</label>
+                            <input type="text" className="form-control" id="validationCustom01" placeholder="например: кот" required />
+                            <div className="valid-feedback">
+                            Looks good!
+                            </div>
+                        </div>
+                        <div className="col-md-4">
+                             <label htmlFor="validationCustom02" className="form-label">Имя (при наличие)</label>
+                             <input type="text" className="form-control" id="validationCustom02" placeholder='например: Барсик' required />
+                              <div className="valid-feedback">
+                             Looks good!
+                              </div>
+                         </div>
+                            <div className="col-md-4">
+                                <label htmlFor="validationCustomUsername" className="form-label">Пол</label>
+                                <div className="input-group has-validation">
+                                <select required>
+                                    <option value="null">не определен</option>
+                                    <option value="male">мальчик</option>
+                                    <option value="female">девочка</option>
+                                </select>
+                                <div className="invalid-feedback">
+                                    Looks good!
+                                </div>
+                                </div>
+                            </div>
+                            <div className="col-md-6">
+                                <label htmlFor="validationCustom03" className="form-label">Место находки</label>
+                                <input type="text" className="form-control" id="validationCustom03" placeholder='укажите район' required />
+                                <div className="invalid-feedback">
+                                Укажите место находки
+                                </div>
+                                <label htmlFor="validationCustom03" className="form-label">Примерный возраст</label>
+                                <input type="text" className="form-control" id="validationCustom03" placeholder='например: 5 месяцев'  />
+                                <div className="invalid-feedback">
+                                </div>
+                                <label htmlFor="validationCustom03" className="form-label">Описание</label>
+                                <textarea type="text" className="form-control" id="validationCustom03" placeholder=''  />
+                                <div className="invalid-feedback">
+                                </div>
+                                <label htmlFor="validationCustom03" className="form-label">Укажите ваш номер телефона</label>
+                                <input type="tel" className="form-control" id="validationCustom03" placeholder='' required/>
+                                <div className="invalid-feedback">
+                                введите ваш номер телефона
+                                </div>
+                                <label htmlFor="validationCustom03" className="form-label">Фото найденного животного</label>
+                                <input type="file" className="form-control" id="validationCustom03" placeholder='' required/>
+                                <div className="invalid-feedback">
+                                </div>
+                            </div>
+                            <div className="col-12">
+                                <div className="form-check">
+                                <input className="form-check-input" type="checkbox" defaultValue id="invalidCheck" required />
+                                <label className="form-check-label" htmlFor="invalidCheck">
+                                    Я даю разрешение на обработку персональных данных
+                                </label>
+                                <div className="invalid-feedback">
+                                    Обязательно
+                                </div>
+                                </div>
+                            </div>
+                            <div className="col-12">
+                                <button className="btn btn-primary" type="submit">Отправить</button>
+                            </div>
+                        </form>
                 </div>
                 <div className="modal-footer">
-                <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
-                <button type="button" className="btn btn-primary">Отправить сообщение</button>
+                    <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
                 </div>
             </div>
             </div>
