@@ -19,7 +19,7 @@ function Modal (props) {
         if (email != '') {
 
             var myHeaders = new Headers();
-            myHeaders.append("Authorization", "Bearer "+localStorage.token);
+            myHeaders.append("Authorization", "Bearer " + localStorage.token);
             myHeaders.append("Content-Type", "application/json");
 
             var raw = JSON.stringify({"email": email});
@@ -48,6 +48,45 @@ function Modal (props) {
                             setError('block');
                             setSuccess('none');
                             setMessage('Пожалуйста введите корректный e-mail')
+                            break;
+                    }
+            })
+            .catch(error => console.log('error', error));
+        }
+
+        if (phone != '') {
+
+            var myHeaders = new Headers();
+            // localStorage.token = "AN0WTsypnJpAyKgVeCaQMBLXkIWJXRNQzN7ZE3ZakYLMKbHNdaUsEg4V9hq580JUKjKwRNHU1Gp7btyj";
+            myHeaders.append("Authorization", "Bearer " + localStorage.token);
+            myHeaders.append("Content-Type", "application/json");
+
+            var raw = JSON.stringify({"phone": phone});
+
+            var requestOptions = {
+                method: 'PATCH',
+                headers: myHeaders,
+                body: raw,
+            };
+
+            fetch("https://pets.xn--80ahdri7a.site/api/users/phone", requestOptions)
+                .then(response => response.status)
+                .then(
+                    result => {console.log(result)
+                    switch (result) {
+                        case 200:
+                            setSuccess('block');
+                            setError('none')
+                            break;
+                        case 401:
+                            setError('block');
+                            setSuccess('none');
+                            setMessage('Пожалуйста авторизуйтесь')
+                            break;
+                        case 422:
+                            setError('block');
+                            setSuccess('none');
+                            setMessage('Пожалуйста введите корректный номер телефона')
                             break;
                     }
             })
@@ -89,6 +128,8 @@ function Modal (props) {
             </div>
             </div>
         </div>
+
+
         <div className="modal fade" id="exampleModal" tabIndex={-1} aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div className="modal-dialog">
             <div className="modal-content">
@@ -139,7 +180,7 @@ function Modal (props) {
                 </div>
                 <div className="modal-body">
                     <div className="alert alert-success" role="alert" style={{display: success}}>
-                        Вы успешно сменили e-mail
+                        Вы успешно изменили данные
                     </div>
                     <div className="alert alert-danger" role="alert" style={{display: error}}>
                         {message}
@@ -148,11 +189,11 @@ function Modal (props) {
                      <ul className="list-group">
                     <h5>{props.data.first_name} {props.data.last_name}</h5>
                     <li className="list-group-item">
-                    {props.data.email}
+                    email
                     <input type="email" className="form-control" placeholder="Сменить почту" aria-label="Сменить почту" aria-describedby="addon-wrapping" onChange={(e)=>setEmail(e.target.value)}/>
                     </li>
                     <li className="list-group-item">
-                    {props.data.phone}
+                    phone
                     <input type="text" className="form-control" placeholder="Сменить телефон" aria-label="Сменить телефон" aria-describedby="addon-wrapping" onChange={(e)=>setPhon(e.target.value)}/>
                     </li>
                 </ul>
@@ -167,8 +208,6 @@ function Modal (props) {
             </div>
             </div>
         </div>
-
-
         <div className="modal fade" id="newPost" tabIndex={-1} aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div className="modal-dialog">
             <div className="modal-content">
@@ -179,8 +218,26 @@ function Modal (props) {
                 <div className="modal-body">
                 <form>
                     <div className="mb-3">
-                    <label htmlFor="message-text" className="col-form-label">Введите описание найденного зверька и место, где вы его нашли:</label>
-                    <textarea className="form-control" id="message-text" defaultValue={""} />
+                        <label htmlfor="type" className="form-control">Тип животного</label>
+                        <input type="text" name="type" id="type" placeholder='например: кот'/>
+                        <label htmlfor="name" className="form-control">Имя (если известно)</label>
+                        <input type="text" name="name" id="type" placeholder='например: Мурзик' />
+                        <label htmlfor="age" className="form-control">Возраст (примерно)</label>
+                        <input type="text" name="age" id="age" placeholder='например: 5 месяцев'/>
+                        <label htmlfor="gender" className="form-control">Пол</label>
+                            <select name="gender" id="gender">
+                               <option value="undefiend">не определен</option> 
+                               <option value="mele">мальчик</option> 
+                               <option value="female">девочка</option> 
+                            </select>
+                        <label htmlfor="date" className="form-control">Дата находки</label>
+                        <input type="date" name="date" id="date" />
+                        <label htmlfor="place" className="form-control">Место находки</label>
+                        <textarea className="form-control" id="message-text" defaultValue={""} placeholder='Нужно указать район'/>
+                        <label htmlFor="message-text" className="col-form-label">Введите описание найденного зверька и место, где вы его нашли:</label>
+                        <textarea className="form-control" id="message-text" defaultValue={""} />
+                        <label htmlfor="gender" className="form-control">Ваш номер телефона</label>
+                        <input type="tel" name="age" id="age" placeholder='начиная с 8'/>
                     </div>
                     <div className="mb-3">
                     <label htmlFor="file" className="col-form-label">Добавьте фото</label><br />
