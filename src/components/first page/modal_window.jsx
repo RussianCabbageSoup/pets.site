@@ -1,8 +1,8 @@
+import { useState } from 'react';
 import icon_human from '../images/icon/v.ico';
 import icon_phone from '../images/icon/phone.ico';
 import icon_mail from '../images/icon/mail.ico';
 import icon_lock from '../images/icon/z.ico';
-import { useState } from 'react';
 
 function Modal (props) {
 
@@ -16,6 +16,8 @@ function Modal (props) {
     let [user_email, setUser_email] = useState('');
     let [user_phone, setUser_phone] = useState('');
     let [user_password, setUser_password] = useState('');
+
+    const [isReg, setIsReg] = useState(false);
 
     function changeData(e) {
 
@@ -98,52 +100,7 @@ function Modal (props) {
             .catch(error => console.log('error', error));
         }
     }
-
-    function registation(e) {
-        e.preventDefault();
-
-        if (
-            user_name !== '' &&
-            user_email !== '' &&
-            user_phone !== '' &&
-            user_password !== ''
-        ) {
-            var myHeaders = new Headers();
-            myHeaders.append("Content-Type", "application/json");
-
-            var raw = JSON.stringify({
-                "name": user_name,
-                "phone": user_phone,
-                "email": user_email,
-                "password": user_password,
-                "password_confirmation": user_password,
-                "confirm": 1
-            });
-
-            var requestOptions = {
-                method: 'POST',
-                headers: myHeaders,
-                body: raw,
-            };
-
-            fetch("https://pets.xn--80ahdri7a.site/api/register", requestOptions)
-            .then(response => response.status)
-            .then(
-                result => {console.log(result)
-                switch (result) {
-                    case 204:
-                        console.log('success');
-                        
-                        break;
-                    case 422:
-                        console.log("ER 422");
-                        
-                        break;
-                }
-        })
-        .catch(error => console.log('error', error));
-        }
-    }
+    
     // Example starter JavaScript for disabling form submissions if there are invalid fields
     function reg(event) {
         'use strict'
@@ -199,6 +156,7 @@ function Modal (props) {
     }
     
     return (
+        
         <div>
         <div className="modal fade" id="contacts" tabIndex={-1} aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div className="modal-dialog">
@@ -233,8 +191,79 @@ function Modal (props) {
             </div>
         </div>
 
+        <div className="modal fade" id="Enter" tabIndex={-1} aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div className="modal-dialog">
+            <div className="modal-content">
+                <div className="modal-header">
+                <h1 className="modal-title fs-5" id="exampleModalLabel">Вход</h1>
+                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Закрыть" />
+                </div>
+                <div className="modal-body">
+                <form>
+                    <ul className="list-group">
+                    <li className="list-group-item">
+                    Введите вашу почту
+                    <input type="email" className="form-control" aria-describedby="addon-wrapping" onChange={(e)=>setEmail(e.target.value)}/>
+                    </li>
+                    <li className="list-group-item">
+                    Введите пароль
+                    <input type="text" className="form-control" aria-describedby="addon-wrapping" onChange={(e)=>setPhon(e.target.value)}/>
+                    </li>
+                    </ul>
+                    <div className="modal-footer d-flex flex-column align-items-end">
+                        <button type="button" className="btn btn-primary mb-5">Войти</button>
+                        <div className='d-flex w-100 justify-content-center'>
+                        <p style={{textAlign: 'center'}}>Нет аккаунта? <button className='btn btn-link' data-bs-toggle="modal" data-bs-target="#exampleModal">Регистрация</button></p>
+                        </div>
+                    </div>
+                </form>
+                </div>
+                <div className="modal-footer">
+                <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                </div>
+            </div>
+            </div>
+        </div>
 
-        <div className="modal fade" id="exampleModal" tabIndex={-1} aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div className="modal fade" id="myPage" tabIndex={-1} aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div className="modal-dialog">
+            <div className="modal-content">
+                <div className="modal-header">
+                <h1 className="modal-title fs-5" id="exampleModalLabel">Личный кабинет</h1>
+                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Закрыть" />
+                </div>
+                <div className="modal-body">
+                    <div className="alert alert-success" role="alert" style={{display: success}}>
+                        Вы успешно изменили данные
+                    </div>
+                    <div className="alert alert-danger" role="alert" style={{display: error}}>
+                        {message}
+                    </div>
+
+                    <ul className="list-group">
+                    <h5>{props.data.first_name} {props.data.last_name}</h5>
+                    <li className="list-group-item">
+                    email
+                    <input type="email" className="form-control" placeholder="Сменить почту" aria-label="Сменить почту" aria-describedby="addon-wrapping" onChange={(e)=>setEmail(e.target.value)}/>
+                    </li>
+                    <li className="list-group-item">
+                    phone
+                    <input type="text" className="form-control" placeholder="Сменить телефон" aria-label="Сменить телефон" aria-describedby="addon-wrapping" onChange={(e)=>setPhon(e.target.value)}/>
+                    </li>
+                </ul>
+                <div>
+                    <h5>Мои посты</h5>
+                </div>
+                </div>
+                <div className="modal-footer">
+                <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                <button type="button" onClick={(e)=>changeData(e)} className="btn btn-primary">Сохранить изменения</button>
+                </div>
+            </div>
+            </div>
+        </div>
+
+       <div className="modal fade" id="exampleModal" tabIndex={-1} aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div className="modal-dialog">
             <div className="modal-content">
                 <div className="modal-header">
@@ -305,46 +334,6 @@ function Modal (props) {
             </div>
             </div>
         </div>
-
-
-        <div className="modal fade" id="myPage" tabIndex={-1} aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div className="modal-dialog">
-            <div className="modal-content">
-                <div className="modal-header">
-                <h1 className="modal-title fs-5" id="exampleModalLabel">Личный кабинет</h1>
-                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Закрыть" />
-                </div>
-                <div className="modal-body">
-                    <div className="alert alert-success" role="alert" style={{display: success}}>
-                        Вы успешно изменили данные
-                    </div>
-                    <div className="alert alert-danger" role="alert" style={{display: error}}>
-                        {message}
-                    </div>
-
-                    <ul className="list-group">
-                    <h5>{props.data.first_name} {props.data.last_name}</h5>
-                    <li className="list-group-item">
-                    email
-                    <input type="email" className="form-control" placeholder="Сменить почту" aria-label="Сменить почту" aria-describedby="addon-wrapping" onChange={(e)=>setEmail(e.target.value)}/>
-                    </li>
-                    <li className="list-group-item">
-                    phone
-                    <input type="text" className="form-control" placeholder="Сменить телефон" aria-label="Сменить телефон" aria-describedby="addon-wrapping" onChange={(e)=>setPhon(e.target.value)}/>
-                    </li>
-                </ul>
-                <div>
-                    <h5>Мои посты</h5>
-                </div>
-                </div>
-                <div className="modal-footer">
-                <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
-                <button type="button" onClick={(e)=>changeData(e)} className="btn btn-primary">Сохранить изменения</button>
-                </div>
-            </div>
-            </div>
-        </div>
-
 
         <div className="modal fade" id="newPost" tabIndex={-1} aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div className="modal-dialog">

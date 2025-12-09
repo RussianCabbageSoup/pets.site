@@ -32,8 +32,8 @@ function Header() {
                 </button>
               </li>
               <li className="nav-item me-3">
-                <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                  Регистрация
+                <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#Enter"/*"#exampleModal"*/>
+                  Войти
                 </button>
               </li>
               <li className="nav-item me-3">
