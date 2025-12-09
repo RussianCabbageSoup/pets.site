@@ -252,6 +252,8 @@ function Modal (props) {
             </div>
             </div>
         </div>
+
+        
         <div className="modal fade" id="newPost" tabIndex={-1} aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div className="modal-dialog">
             <div className="modal-content">
