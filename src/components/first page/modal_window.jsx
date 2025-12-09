@@ -12,6 +12,8 @@ function Modal (props) {
     let [error, setError]=useState('none');
     let [message, setMessage]=useState();
 
+    
+
     function changeData(e) {
 
         e.preventDefault();
@@ -94,6 +96,10 @@ function Modal (props) {
         }
     }
 
+    function registation(e) {
+        e.preventDefault();
+
+    }
     // Example starter JavaScript for disabling form submissions if there are invalid fields
     function reg(event) {
         'use strict'
@@ -203,7 +209,7 @@ function Modal (props) {
                             </div>
                         </div>
                         <div className="col-12">
-                            <button className="btn btn-primary" type="submit">Отправить</button>
+                            <button className="btn btn-primary" type="submit" onClick={(e)=>registation(e)}>Отправить</button>
                         </div>
                     </form>
                 </div>
@@ -230,7 +236,7 @@ function Modal (props) {
                         {message}
                     </div>
 
-                     <ul className="list-group">
+                    <ul className="list-group">
                     <h5>{props.data.first_name} {props.data.last_name}</h5>
                     <li className="list-group-item">
                     email
@@ -253,7 +259,7 @@ function Modal (props) {
             </div>
         </div>
 
-        
+
         <div className="modal fade" id="newPost" tabIndex={-1} aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div className="modal-dialog">
             <div className="modal-content">
