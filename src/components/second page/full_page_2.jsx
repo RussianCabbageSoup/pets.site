@@ -2,7 +2,7 @@ import Footer from "../first page/footer";
 import Header from "../first page/header";
 import Card_1 from "./animal-card_1";
 import Modal_Cat from "./modal_cat";
-import Modal from "../first page/modal_window";
+import Modals from "../modals/Modals";
 import { useState } from "react";
 
 function Full_page_2 () {

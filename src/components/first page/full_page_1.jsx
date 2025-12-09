@@ -3,8 +3,8 @@ import Header from "./header";
 import Slider from "./slider";
 import Article from "./articles";
 import News from "./news";
-import Modal from "./modal_window";
 import Modal_Cat from "../second page/modal_cat";
+import Modals from "../modals/Modals";
 import { useState } from "react";
 
 function Full_page_1 () {
@@ -23,7 +23,7 @@ function Full_page_1 () {
             <Article/>
             <News/>
             <Footer/>
-            <Modal data = {user} setValue = {setUser}/>
+            <Modals data = {user} setValue = {setUser}/>
             <Modal_Cat/>
         </div>
     );
