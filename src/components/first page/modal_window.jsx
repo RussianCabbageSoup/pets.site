@@ -119,12 +119,13 @@ function Modal (props) {
                 <form>
                     <div className="mb-3">
                     <label htmlFor="recipient-name" className="col-form-label">Получатель:</label>
-                    <input type="text" className="form-control" placeholder="helpAnimal@mail.ru" aria-label="helpAnimal@mail.ru" aria-describedby="addon-wrapping" />
+                    <input type="email" className="form-control" placeholder="helpAnimal@mail.ru" aria-label="helpAnimal@mail.ru" aria-describedby="addon-wrapping" required/>
                     </div>
                     <div className="mb-3">
                     <label htmlFor="message-text" className="col-form-label">Сообщение:</label>
                     <textarea className="form-control" id="message-text" defaultValue={""} />
                     </div>
+                    <button type="submit" className="btn btn-primary">Отправить</button>
                 </form>
                 </div>
                 <ul className="list-group">
@@ -135,7 +136,6 @@ function Modal (props) {
                 </ul>
                 <div className="modal-footer">
                 <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
-                <button type="button" className="btn btn-primary">Отправить</button>
                 </div>
             </div>
             </div>
@@ -150,33 +150,65 @@ function Modal (props) {
                 <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Закрыть" />
                 </div>
                 <div className="modal-body">
-                <div className="input-group flex-nowrap mb-2">
-                    <span className="input-group-text" id="addon-wrapping"><img src={icon_human} /></span>
-                    <input type="text" className="form-control" placeholder="name" aria-label="name" aria-describedby="addon-wrapping" />
-                </div>
-                <div className="input-group flex-nowrap mb-2">
-                    <span className="input-group-text" id="addon-wrapping"><img src={icon_phone} /></span>
-                    <input type="tel" className="form-control" placeholder="phone" aria-label="phone" aria-describedby="addon-wrapping" />
-                </div>
-                <div className="input-group flex-nowrap mb-2">
-                    <span className="input-group-text" id="addon-wrapping"><img src={icon_mail} /></span>
-                    <input type="email" className="form-control" placeholder="email" aria-label="email" aria-describedby="addon-wrapping" />
-                </div>
-                <div className="input-group flex-nowrap mb-2">
-                    <span className="input-group-text" id="addon-wrapping"><img src={icon_lock} /></span>
-                    <input type="password" className="form-control" placeholder="password" aria-label="password" aria-describedby="addon-wrapping" />
-                </div>
-                <div className="input-group flex-nowrap mb-2">
-                    <span className="input-group-text" id="addon-wrapping"><img src={icon_lock} /></span>
-                    <input type="password" className="form-control" placeholder="Подтвердите пароль" aria-label="Подтвердите пароль" aria-describedby="addon-wrapping" />
-                </div>
-                <div className="input-group flex-nowrap mb-2">
-                    <input className="me-1" type="checkbox" />Я даю согласие на обработку персоналных данных
-                </div>
+                <form className="row g-3 needs-validation" noValidate id='form' onSubmit={(e)=>reg(e)} >
+                    <label htmlFor="validationCustom03" className="form-label"><h5>Имя</h5></label>
+                        <div className="input-group col-md-6">
+                            <span className="input-group-text" id="addon-wrapping"><img src={icon_human} /></span>
+                            <input type="text" className="form-control" id="validationCustom03" placeholder='' aria-describedby="addon-wrapping" required />
+                            <div className="invalid-feedback">
+                            Укажите имя
+                            </div>
+                        </div>
+                    <label htmlFor="validationCustom03" className="form-label"><h5>Адрес электронной почты</h5></label>
+                        <div className="input-group col-md-6">
+                            <span className="input-group-text" id="addon-wrapping"><img src={icon_mail} /></span>
+                            <input type="email" className="form-control" id="validationCustom03" placeholder='' aria-describedby="addon-wrapping" required />
+                            <div className="invalid-feedback">
+                            Укажите почту
+                            </div>
+                        </div>
+                    <label htmlFor="validationCustom03" className="form-label"><h5>Номер телефона</h5></label>
+                        <div className="input-group col-md-6">
+                            <span className="input-group-text" id="addon-wrapping"><img src={icon_phone} /></span>
+                            <input type="tel" className="form-control" id="validationCustom03" placeholder='' aria-describedby="addon-wrapping" required />
+                            <div className="invalid-feedback">
+                            Укажите номер телефона
+                            </div>
+                        </div>
+                    <label htmlFor="validationCustom03" className="form-label"><h5>Пароль</h5></label>
+                        <div className="input-group col-md-6">
+                            <span className="input-group-text" id="addon-wrapping"><img src={icon_lock} /></span>
+                            <input type="password" className="form-control" id="validationCustom03" placeholder='' aria-describedby="addon-wrapping" required />
+                            <div className="invalid-feedback">
+                            укажите пароль
+                            </div>
+                        </div>
+                    <label htmlFor="validationCustom03" className="form-label"><h5>Подтвердите пароль</h5></label>
+                        <div className="input-group col-md-6">
+                            <span className="input-group-text" id="addon-wrapping"><img src={icon_lock} /></span>
+                            <input type="password" className="form-control" id="validationCustom03" placeholder='' aria-describedby="addon-wrapping" required />
+                            <div className="invalid-feedback">
+                            Подтвердите пароль
+                            </div>
+                        </div>
+                        <div className="col-12">
+                            <div className="form-check">
+                            <input className="form-check-input" type="checkbox" defaultValue id="invalidCheck" required />
+                            <label className="form-check-label" htmlFor="invalidCheck">
+                                Я даю разрешение на обработку персональных данных
+                            </label>
+                            <div className="invalid-feedback">
+                                Обязательно
+                            </div>
+                            </div>
+                        </div>
+                        <div className="col-12">
+                            <button className="btn btn-primary" type="submit">Отправить</button>
+                        </div>
+                    </form>
                 </div>
                 <div className="modal-footer">
                 <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
-                <button type="button" className="btn btn-primary">Войти</button>
                 </div>
             </div>
             </div>
