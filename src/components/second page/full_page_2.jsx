@@ -2,8 +2,8 @@ import Footer from "../first page/footer";
 import Header from "../first page/header";
 import Card_1 from "./animal-card_1";
 import Modal_Cat from "./modal_cat";
-import Modals from "../modals/Modals";
 import { useState } from "react";
+import Modals from "../modals/Modals";
 
 function Full_page_2 () {
 
@@ -11,7 +11,7 @@ function Full_page_2 () {
         first_name: "The",
         last_name: "Maksim",
         email: "mail@mail.ru",
-         phone: "+7 (912) 212-32-23" 
+        phone: "+7 (912) 212-32-23" 
         });
 
     return (
@@ -20,7 +20,7 @@ function Full_page_2 () {
             <Card_1/>
             <Footer/>
             <Modal_Cat/>
-            <Modal data = {user} setValue = {setUser}/>
+            <Modals/>
         </div>
     );
 }

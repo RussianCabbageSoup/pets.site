@@ -1,4 +1,10 @@
+import { useState } from "react";
+
 function ModalPersonalAcc() {
+
+    const [phone, setPhon]=useState('');
+    const [email, setEmail]=useState('');
+
     return ( 
         <div className="modal fade" id="Enter" tabIndex={-1} aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div className="modal-dialog">

@@ -1,4 +1,62 @@
+import { useState } from "react";
+
 function ModalNewPost() {
+
+    const [user_name, setUser_name] = useState('');
+    const [user_email, setUser_email] = useState('');
+    const [user_phone, setUser_phone] = useState('');
+    const [user_password, setUser_password] = useState('');
+
+    function reg(event) {
+        'use strict'
+        const form = document.getElementById('form')
+        event.preventDefault()
+        event.stopPropagation()    
+        form.classList.add('was-validated')    
+
+        if (
+            user_name !== '' &&
+            user_email !== '' &&
+            user_phone !== '' &&
+            user_password !== ''
+        ) {
+            var myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+
+            var raw = JSON.stringify({
+                "name": user_name,
+                "phone": user_phone,
+                "email": user_email,
+                "password": user_password,
+                "password_confirmation": user_password,
+                "confirm": 1
+            });
+
+            var requestOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: raw,
+            };
+
+            fetch("https://pets.xn--80ahdri7a.site/api/register", requestOptions)
+            .then(response => response.status)
+            .then(
+                result => {console.log(result)
+                switch (result) {
+                    case 204:
+                        console.log('success');
+                        
+                        break;
+                    case 422:
+                        console.log("ER 422");
+                        
+                        break;
+                }
+        })
+        .catch(error => console.log('error', error));
+        }
+    }
+
     return ( 
         <div className="modal fade" id="newPost" tabIndex={-1} aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div className="modal-dialog">
