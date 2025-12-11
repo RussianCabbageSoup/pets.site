@@ -6,14 +6,6 @@ import { useState } from "react";
 import Modals from "../modals/Modals";
 
 function Full_page_2 () {
-
-    let [user, setUser] = useState({
-        first_name: "The",
-        last_name: "Maksim",
-        email: "mail@mail.ru",
-        phone: "+7 (912) 212-32-23" 
-        });
-
     return (
         <div>
             <Header/>
