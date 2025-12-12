@@ -2,8 +2,42 @@ import { useState } from "react";
 
 function ModalLog() {
 
-    const [phone, setPhon]=useState('');
     const [email, setEmail]=useState('');
+    const [password, setPassword] = useState('');
+    
+    localStorage.token = '';
+
+    function logIn(event) {
+        event.preventDefault();
+
+        if (password !== '' && email !== '') {
+            var myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+
+            var raw = JSON.stringify({
+                "email": email,
+                "password": password
+            });
+
+            var requestOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: raw,
+            };
+
+            fetch("https://pets.xn--80ahdri7a.site/api/login", requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                console.log(result)
+
+                localStorage.token = result.data.token;
+                console.log('Токен сохранен в localStorage');
+                
+                const modal = document.getElementById('Enter');
+            })
+            .catch(error => console.log('error', error));
+        }
+    }
 
     return ( 
         <div className="modal fade" id="Enter" tabIndex={-1} aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -14,19 +48,19 @@ function ModalLog() {
                     <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Закрыть" />
                     </div>
                         <div className="modal-body">
-                            <form>
+                            <form onSubmit={(e)=>logIn(e)}>
                                 <ul className="list-group">
                                 <li className="list-group-item">
                                 Введите вашу почту
-                                <input type="email" className="form-control" aria-describedby="addon-wrapping" onChange={(e)=>setEmail(e.target.value)}/>
+                                <input type="email" className="form-control" aria-describedby="addon-wrapping" required onChange={(e)=>setEmail(e.target.value)}/>
                                 </li>
                                 <li className="list-group-item">
                                 Введите пароль
-                                <input type="text" className="form-control" aria-describedby="addon-wrapping" onChange={(e)=>setPhon(e.target.value)}/>
+                                <input type="text" className="form-control" aria-describedby="addon-wrapping" required onChange={(e)=>setPassword(e.target.value)}/>
                                 </li>
                                 </ul>
                                 <div className="modal-footer d-flex flex-column align-items-end">
-                                    <button type="button" className="btn btn-primary mb-5">Войти</button>
+                                    <button type="submit" className="btn btn-primary mb-5">Войти</button>
                                     <div className='d-flex w-100 justify-content-center'>
                                     <p style={{textAlign: 'center'}}>Нет аккаунта? <button type="button" className='btn btn-link' data-bs-toggle="modal" data-bs-target="#exampleModal">Регистрация</button></p>
                                     </div>
