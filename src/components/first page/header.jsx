@@ -49,9 +49,7 @@ function Header() {
               </button>
             </li>
             <li className="nav-item me-3" style={{display: personalAccD}}>
-              <button type="button" className="btn btn-primary h-100" data-bs-toggle="modal" data-bs-target="#myPage">
-                Личный кабинет
-              </button>
+              <Link to={'/myPage'} className="nav-link">Личный кабинет</Link>
             </li>
             <li>
               <form className="d-flex me-3" role="search">
