@@ -4,9 +4,10 @@ function ModalLog() {
 
     const [email, setEmail]=useState('');
     const [password, setPassword] = useState('');
+    const [messageBlock, setMessageBlock] = useState('none');
+    const [massage, setMessage] = useState('');
+    let [isLogin,setIsLogin] = useState(false);
     
-    localStorage.token = '';
-
     function logIn(event) {
         event.preventDefault();
 
@@ -30,10 +31,22 @@ function ModalLog() {
             .then(result => {
                 console.log(result)
 
-                localStorage.token = result.data.token;
-                console.log('Токен сохранен в localStorage');
-                
-                const modal = document.getElementById('Enter');
+                if ("data" in result){
+                    localStorage.token = result.data.token;
+                    console.log('Токен сохранен в localStorage');
+
+                    setIsLogin(true);
+                    // const modal = document.getElementById('Enter');
+                    // modal.hidden();
+                } 
+                else if (result.error.code == 401) {
+                    setMessage('Аккаунт не существует!');
+                    setMessageBlock('flex');
+                }
+                else {
+                    setMessage('Произошла ошибка!');
+                    setMessageBlock('flex');
+                }
             })
             .catch(error => console.log('error', error));
         }
@@ -44,8 +57,8 @@ function ModalLog() {
             <div className="modal-dialog">
                 <div className="modal-content">
                     <div className="modal-header">
-                    <h1 className="modal-title fs-5" id="exampleModalLabel">Вход</h1>
-                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Закрыть" />
+                        <h1 className="modal-title fs-5" id="exampleModalLabel">Вход</h1>
+                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Закрыть" />
                     </div>
                         <div className="modal-body">
                             <form onSubmit={(e)=>logIn(e)}>
@@ -59,6 +72,9 @@ function ModalLog() {
                                 <input type="text" className="form-control" aria-describedby="addon-wrapping" required onChange={(e)=>setPassword(e.target.value)}/>
                                 </li>
                                 </ul>
+                                <div className="alert alert-danger m-3" role="alert" style={{display: messageBlock}}>
+                                    {massage}
+                                </div>
                                 <div className="modal-footer d-flex flex-column align-items-end">
                                     <button type="submit" className="btn btn-primary mb-5">Войти</button>
                                     <div className='d-flex w-100 justify-content-center'>
@@ -68,7 +84,7 @@ function ModalLog() {
                             </form>
                         </div>
                     <div className="modal-footer">
-                    <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
                     </div>
                 </div>
             </div>

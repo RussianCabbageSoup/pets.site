@@ -5,19 +5,12 @@ import { useState } from 'react';
 
 function Header() {
 
-  const [isLog, setIsLog] = useState(true);
-  const [log, setLog] = useState('');
-  const [personalAcc, setPersonalAcc] = useState('none');
-
-  function showButton() {
-    if (isLog) {
-      setLog('none');
-      setPersonalAcc('flex');
-    }
-  }
+  // const [isLog, setIsLog] = useState(true);
+  // const [log, setLog] = useState('');
+  // const [personalAcc, setPersonalAcc] = useState('none');
 
   return ( 
-    <nav className="navbar-nav navbar-expand-lg navbar-light bg-light mb-2" onLoad={showButton}>
+    <nav className="navbar-nav navbar-expand-lg navbar-light bg-light mb-2">
       <div className="container">
         <Link to={'/'} className="navbar-brand">
           <img src={img} alt="Логотип" width={30} height={30} className="d-inline-block align-text-top" />
@@ -44,12 +37,12 @@ function Header() {
                 Контакты
               </button>
             </li>
-            <li className="nav-item me-3" style={{display: log}}>
+            <li className="nav-item me-3" style={{display: 'flex'}}>
               <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#Enter"/*"#exampleModal"*/>
                 Войти
               </button>
             </li>
-            <li className="nav-item me-3" style={{display: personalAcc}}>
+            <li className="nav-item me-3" style={{display: 'flex'}}>
               <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myPage">
                 Личный кабинет
               </button>
