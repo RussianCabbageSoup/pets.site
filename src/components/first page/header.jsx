@@ -1,13 +1,19 @@
 import img from '../images/logo.png'
 import '../css/myStyle.css';
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 function Header() {
 
-  // const [isLog, setIsLog] = useState(true);
-  // const [log, setLog] = useState('');
-  // const [personalAcc, setPersonalAcc] = useState('none');
+  const [personalAccD, setPersonalAccD] = useState('none');
+  const [loginD, setLoginD] = useState('flex');
+
+  useEffect(() => {
+    if (localStorage.token !== ''){
+      setPersonalAccD('flex');
+      setLoginD('none');
+    }
+  }, []);
 
   return ( 
     <nav className="navbar navbar-nav navbar-expand-lg navbar-light bg-light mb-2">
@@ -37,12 +43,12 @@ function Header() {
                 Контакты
               </button>
             </li>
-            <li className="nav-item me-3" style={{display: 'flex'}}>
+            <li className="nav-item me-3" style={{display: loginD}}>
               <button type="button" className="btn btn-primary h-100" data-bs-toggle="modal" data-bs-target="#Enter"/*"#exampleModal"*/>
                 Войти
               </button>
             </li>
-            <li className="nav-item me-3" style={{display: 'flex'}}>
+            <li className="nav-item me-3" style={{display: personalAccD}}>
               <button type="button" className="btn btn-primary h-100" data-bs-toggle="modal" data-bs-target="#myPage">
                 Личный кабинет
               </button>

@@ -35,6 +35,7 @@ function ModalLog() {
                     localStorage.token = result.data.token;
                     console.log('Токен сохранен в localStorage');
 
+                    window.location.reload();
                     setIsLogin(true);
                     // const modal = document.getElementById('Enter');
                     // modal.hidden();
