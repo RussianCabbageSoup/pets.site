@@ -35,11 +35,11 @@ function Header() {
             <li className="nav-item me-3">
               <Link to={'/foundAnimal'} className="nav-link">Найти животное</Link>
             </li>
-            <li className="nav-item me-3">
+            {/* <li className="nav-item me-3">
               <button type="button" className="btn btn-primary h-100" data-bs-toggle="modal" data-bs-target="#newPost">
                 Сообщить о находке
               </button>
-            </li>
+            </li> */}
             <li className="nav-item me-3">
               <button type="button" className="btn btn-primary h-100" data-bs-toggle="modal" data-bs-target="#contacts">
                 Контакты

@@ -122,8 +122,8 @@ function ProfileInfo() {
                             <div className="card">
                                 <div className="card-header bg-light d-flex justify-content-between align-items-center">
                                     <h5 className="card-title mb-0"><i className="bi bi-list-ul text-primary me-2" />Мои объявления</h5>
-                                    <button className="btn btn-sm btn-outline-primary">
-                                    <i className="bi bi-plus-circle me-1" />Добавить
+                                    <button type="button" className="btn btn-primary h-100" data-bs-toggle="modal" data-bs-target="#newPost">
+                                        <i className="bi bi-plus-circle me-1" />Добавить
                                     </button>
                                 </div>
                                 <div className="card-body">
@@ -138,7 +138,7 @@ function ProfileInfo() {
                                 </div>
                             </div>
                         </div>
-                        
+
                     </div>
                 </div>
             </div>
