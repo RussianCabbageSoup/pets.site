@@ -4,6 +4,8 @@ function ProfileInfo() {
 
     const [userData, setUserData] = useState([]);
     const [isLogin, setIslogin] = useState(false);
+    const [email, setEmail] = useState('');
+    const [phone, setPhone] = useState('');
 
     useEffect(() => {
         getInf();
@@ -80,6 +82,70 @@ function ProfileInfo() {
         );
     }
 
+    function changeEmail(event) {
+        event.preventDefault();
+
+        if (email !== '') {
+            var myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+            myHeaders.append("Authorization", `Bearer ${localStorage.token}`);
+
+            var raw = JSON.stringify({
+                "email": email,
+            });
+
+            var requestOptions = {
+                method: 'PATCH',
+                headers: myHeaders,
+                body: raw,
+            };
+
+            fetch("https://pets.xn--80ahdri7a.site/api/users/email", requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                console.log(result)
+
+                if (result.data.status){
+                    window.location.reload();
+                }
+
+            })
+            .catch(error => console.log('error', error));
+        }
+    }
+
+    function changePhone(event) {
+        event.preventDefault();
+
+        if (phone !== '') {
+            var myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+            myHeaders.append("Authorization", `Bearer ${localStorage.token}`);
+
+            var raw = JSON.stringify({
+                "phone": phone,
+            });
+
+            var requestOptions = {
+                method: 'PATCH',
+                headers: myHeaders,
+                body: raw,
+            };
+
+            fetch("https://pets.xn--80ahdri7a.site/api/users/phone", requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                console.log(result)
+
+                if (result.data.status){
+                    window.location.reload();
+                }
+
+            })
+            .catch(error => console.log('error', error));
+        }
+    }
+
     return ( 
 
             <div>
@@ -134,9 +200,9 @@ function ProfileInfo() {
                                     </div>
                                     <div className="mb-3">
                                         <label htmlFor="newEmail" className="form-label">Новый email</label>
-                                        <input type="email" className="form-control" id="newEmail" placeholder="Введите новый email" />
+                                        <input type="email" className="form-control" id="newEmail" placeholder="Введите новый email" onChange={(e)=>setEmail(e.target.value)} />
                                     </div>
-                                    <button className="btn btn-primary w-100" id="changeEmailBtn">
+                                    <button className="btn btn-primary w-100" id="changeEmailBtn" onClick={(e) => changeEmail(e)}>
                                         <i className="bi bi-check-circle me-1" />Сменить email
                                     </button>
                                 </div>
@@ -152,9 +218,9 @@ function ProfileInfo() {
                                     </div>
                                     <div className="mb-3">
                                         <label htmlFor="newPhone" className="form-label">Новый телефон</label>
-                                        <input type="tel" className="form-control" id="newPhone" placeholder="Введите новый номер телефона" />
+                                        <input type="tel" className="form-control" id="newPhone" placeholder="Введите новый номер телефона" onChange={(e)=>setPhone(e.target.value)}/>
                                     </div>
-                                    <button className="btn btn-primary w-100" id="changePhoneBtn">
+                                    <button className="btn btn-primary w-100" id="changePhoneBtn" onClick={(e) => changePhone(e)}>
                                         <i className="bi bi-check-circle me-1" />Сменить телефон
                                     </button>
                                 </div>
