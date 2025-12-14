@@ -9,7 +9,7 @@ function Header() {
   const [loginD, setLoginD] = useState('flex');
 
   useEffect(() => {
-    if (localStorage.token !== ''){
+    if (localStorage.token){
       setPersonalAccD('flex');
       setLoginD('none');
     }
