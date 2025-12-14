@@ -1,5 +1,6 @@
 import cat from '../images/little cat.avif';
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router';
 
 function Card_1() {
     const [animalCards, setAnimalCards] = useState([]);
@@ -130,6 +131,7 @@ function Card_1() {
 
                 {currentCards.map(pet => (
                     <div className="col-md-4 mb-4" key={pet.id}>
+                        <Link to={'/animal'}>
                         <div className="card animal-card h-100">
                             <img 
                                 src={pet.photos} 
@@ -152,6 +154,7 @@ function Card_1() {
                                 </p>
                             </div>
                         </div>
+                        </Link>
                     </div>
                 ))}
             </div>

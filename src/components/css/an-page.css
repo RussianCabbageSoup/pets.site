@@ -1,0 +1,40 @@
+.animal-card {
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s;
+}
+.animal-card:hover {
+    transform: translateY(-5px);
+}
+.animal-img {
+    height: 300px;
+    object-fit: cover;
+    width: 100%;
+}
+.badge-custom {
+    font-size: 0.8em;
+    padding: 5px 10px;
+}
+.btn-action {
+    border-radius: 25px;
+    padding: 10px 25px;
+    font-weight: 500;
+    transition: all 0.3s;
+}
+.btn-contact {
+    background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+    border: none;
+}
+.btn-adopt {
+    background: linear-gradient(135deg, #552e88 0%, #0f0cbe 100%);
+    border: none;
+}
+.info-item {
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px dashed #eee;
+}
+.info-item:last-child {
+    border-bottom: none;
+}
