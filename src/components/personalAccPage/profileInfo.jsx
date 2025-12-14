@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 function ProfileInfo() {
 
     const [userData, setUserData] = useState([]);
+    const [isLogin, setIslogin] = useState(false);
 
     useEffect(() => {
         getInf();
@@ -33,8 +34,50 @@ function ProfileInfo() {
                     ordersCount: user.ordersCount
                 }
 
+                setIslogin(true);
+
                 setUserData(userData);
+
+                if (!(result.id)){
+                    setIslogin(false);
+                }
             })
+    }
+
+    if (!isLogin) {
+        return (
+            <div className="container py-5">
+                <div className="row justify-content-center">
+                    <div className="col-md-6">
+                        <div className="card shadow">
+                            <div className="card-body text-center p-5">
+                                <div className="mb-4">
+                                    <i className="bi bi-shield-lock text-danger" style={{ fontSize: '4rem' }} />
+                                </div>
+                                <h2 className="card-title mb-4">Доступ ограничен</h2>
+                                <p className="card-text mb-4">
+                                    Для просмотра этой страницы необходимо авторизоваться.
+                                    Пожалуйста, войдите в свою учетную запись или зарегистрируйтесь.
+                                </p>
+                                <div className="d-grid gap-2 d-md-block">
+                                    <button type="button" className="btn btn-primary h-100" data-bs-toggle="modal" data-bs-target="#Enter">
+                                        Войти
+                                    </button>
+                                    <button type="button" className='btn btn-link' data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                        Зарегистрироваться
+                                    </button>
+                                </div>
+                                <div className="mt-4 text-muted">
+                                    <small>
+                                        Если у вас уже есть аккаунт, проверьте, что вы вошли в систему.
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
     }
 
     return ( 
