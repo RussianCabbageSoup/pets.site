@@ -10,7 +10,7 @@ function Header() {
   const [exit, setExit] = useState('none');
 
   useEffect(() => {
-    if (localStorage.token){
+    if (localStorage.token && localStorage.token !== ''){
       setPersonalAccD('flex');
       setExit('flex')
       setLoginD('none');
@@ -51,7 +51,7 @@ function Header() {
               </button>
             </li>
             <li className="nav-item me-3" style={{display: exit}}>
-              <button type="button" className="btn btn-primary h-100" data-bs-toggle="modal" data-bs-target="#Exit"/*"#exampleModal"*/>
+              <button type="button" className="btn btn-primary h-100" style={{background: 'red'}} data-bs-toggle="modal" data-bs-target="#Exit"/*"#exampleModal"*/>
                 Выйти
               </button>
             </li>

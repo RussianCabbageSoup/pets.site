@@ -1,4 +1,13 @@
+import { useState } from "react";
+
 function Exit() {
+    
+    function logout(e){
+        e.preventDefault();
+
+        localStorage.token = '';
+        window.location.reload();
+    }
     return ( 
         <div className="modal fade" id="Exit" tabIndex={-1}>
         <div className="modal-dialog">
@@ -12,7 +21,7 @@ function Exit() {
             </div>
             <div className="modal-footer">
                 <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
-                <button type="button" className="btn btn-primary" id="confirmLogout">Выйти</button>
+                <button type="button" className="btn btn-primary" id="confirmLogout" onClick={(e) => logout(e)}>Выйти</button>
             </div>
             </div>
         </div>
