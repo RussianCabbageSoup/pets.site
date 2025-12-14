@@ -1,4 +1,5 @@
 import ModalContact from './ModalContact';
+import Exit from './ModalExit';
 import ModalLog from './ModalLog';
 import ModalNewPost from './ModalNewPost';
 import ModalPersonalAcc from './ModalPersonalAcc';
@@ -14,6 +15,7 @@ function Modals () {
             <ModalNewPost/>
             <ModalPersonalAcc/>
             <ModalRegistration/>
+            <Exit/>
         </div>
     );
 }

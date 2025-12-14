@@ -7,10 +7,12 @@ function Header() {
 
   const [personalAccD, setPersonalAccD] = useState('none');
   const [loginD, setLoginD] = useState('flex');
+  const [exit, setExit] = useState('none');
 
   useEffect(() => {
     if (localStorage.token){
       setPersonalAccD('flex');
+      setExit('flex')
       setLoginD('none');
     }
   }, []);
@@ -46,6 +48,11 @@ function Header() {
             <li className="nav-item me-3" style={{display: loginD}}>
               <button type="button" className="btn btn-primary h-100" data-bs-toggle="modal" data-bs-target="#Enter"/*"#exampleModal"*/>
                 Войти
+              </button>
+            </li>
+            <li className="nav-item me-3" style={{display: exit}}>
+              <button type="button" className="btn btn-primary h-100" data-bs-toggle="modal" data-bs-target="#Exit"/*"#exampleModal"*/>
+                Выйти
               </button>
             </li>
             <li className="nav-item me-3" style={{display: personalAccD}}>
