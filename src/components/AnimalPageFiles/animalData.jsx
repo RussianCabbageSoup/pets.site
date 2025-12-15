@@ -1,78 +1,86 @@
+import { useState, useEffect } from 'react';
+import { useParams} from 'react-router-dom';
 import '../css/an-page.css';
 
 function AnimalData() {
-    return ( 
-        <div className="container py-5">
-        <div className="row justify-content-center">
-            <div className="col-lg-10">
-            <div className="card animal-card border-0">
-                <div className="row g-0">
-                <div className="col-md-6">
-                    <img src='' className="animal-img" alt=''/>
-                </div>
-                <div className="col-md-6">
-                    <div className="card-body p-4">
-                    <div className="d-flex justify-content-between align-items-start mb-3">
-                        <h3 className="card-title mb-0">
-                        <i className="bi bi-heart-fill text-danger me-2" />
-                        Ищет дом
-                        </h3>
-                        <span className="badge bg-warning text-dark badge-custom">
-                        <i className="bi bi-geo-alt me-1" />
-                        Василиостровский
-                        </span>
-                    </div>
-                    <div className="mb-4">
-                        <h4 className="fw-bold">Кошка рыжая</h4>
-                        <div className="text-muted mb-3">
-                        <i className="bi bi-tag me-2" />
-                        ID: <span className="fw-bold">1</span>
-                        <span className="mx-2">•</span>
-                        <i className="bi bi-shield-check me-2" />
-                        Маркер: <span className="fw-bold">vc-001-spb</span>
-                        </div>
-                    </div>
-                    <div className="mb-4">
-                        <div className="info-item">
-                        <small className="text-muted d-block">
-                            <i className="bi bi-calendar3 me-2" />
-                            Дата обнаружения
-                        </small>
-                        <span className="fw-bold">05 марта 2023</span>
-                        </div>
-                        <div className="info-item">
-                        <small className="text-muted d-block">
-                            <i className="bi bi-geo me-2" />
-                            Район
-                        </small>
-                        <span className="fw-bold">Василиостровский район</span>
-                        </div>
-                        <div className="info-item">
-                        <small className="text-muted d-block">
-                            <i className="bi bi-card-text me-2" />
-                            Описание
-                        </small>
-                        <p className="mb-0 mt-1">Красивая рыжая кошка ищет любящую семью. Очень ласковая и игривая, приучена к лотку.</p>
-                        </div>
-                    </div>
-                    <div className="d-grid gap-3 d-md-flex justify-content-md-end mt-4">
-                        <button className="btn btn-contact btn-action text-white me-md-2 mb-2 mb-md-0" data-bs-toggle="modal" data-bs-target="#contactModal">
-                        <i className="bi bi-chat-dots me-2" />
-                        Связаться
-                        </button>
-                        <button className="btn btn-adopt btn-action text-white" data-bs-toggle="modal" data-bs-target="#adoptModal">
-                        <i className="bi bi-house-heart me-2" />
-                        Забрать
-                        </button>
-                    </div>
-                    </div>
-                </div>
-                </div>
-            </div>
-            </div>
-        </div>
-        </div>
+    const { id } = useParams();
+    const [animal, setAnimal] = useState('');
 
+    useEffect(() => {
+        getAnimalDetails();
+    }, [id]);
+
+    function getAnimalDetails() {
+        const myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+
+        const requestOptions = {
+            method: 'GET',
+            headers: myHeaders,
+        };
+
+        fetch(`https://pets.xn--80ahdri7a.site/api/pets/${id}`, requestOptions)
+            .then(response => {
+                return response.json();
+            })
+            .then(result => {
+                console.log("Animal details:", result);
+                
+                if (result.data.pet) {
+                    const petData = result.data.pet;
+                    setAnimal({
+                        id: petData.id,
+                        district: petData.district,
+                        kind: petData.kind,
+                        photos: "https://pets.xn--80ahdri7a.site/" + petData.photos,
+                        date: petData.date,
+                        description: petData.description,
+                        mark: petData.mark
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('Ошибка загрузки:', error);
+            });
+    }
+
+    return (
+        <div className="container mt-4 animal-page">
+            <div className="card mb-4">
+                <div className="row g-0">
+                    <div className="col-md-6">
+                        <img 
+                            src={animal.photos} 
+                            className="img-fluid rounded-start animal-photo"
+                            alt={animal.kind}
+                            style={{ height: '400px', width: '100%', objectFit: 'cover' }}
+                        />
+                    </div>
+                    <div className="col-md-6">
+                        <div className="card-body">
+                            <h1 className="card-title mb-3">{animal.kind}</h1>
+                            <div className="animal-info mb-4">
+                                <div className="row">
+                                    <div className="col-md-6">
+                                        <p><strong>Дата:</strong> {animal.date}</p>
+                                        <p><strong>Район:</strong> {animal.district}</p>
+                                        <p><strong>Маркер:</strong> {animal.mark}</p>
+                                    </div>
+                                    <div className="col-md-6">
+                                        <p><strong>ID:</strong> {animal.id}</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="animal-description mb-4">
+                                <h5>Описание:</h5>
+                                <p className="card-text">{animal.description}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     );
 }
 
