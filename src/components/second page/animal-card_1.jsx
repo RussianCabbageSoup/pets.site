@@ -199,12 +199,7 @@ function Card_1() {
                             <div className="col-md-4 mb-4" key={pet.id}>
                                 <Link to={`/animal/${pet.id}`}>
                                     <div className="card animal-card h-100">
-                                        <img
-                                            src={pet.photos}
-                                            className="card-img-top"
-                                            alt={pet.kind}
-                                            style={{ height: '200px', objectFit: 'cover' }}
-                                        />
+                                        <img src={pet.photos} className="card-img-top" alt={pet.kind} style={{ height: '200px', objectFit: 'cover' }}/>
                                         <div className="card-body">
                                             <h5 className="card-title">
                                                 {pet.kind}, от {pet.date}
@@ -229,27 +224,17 @@ function Card_1() {
                         <nav aria-label="Page navigation">
                             <ul className="pagination justify-content-center">
                                 <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
-                                    <button
-                                        className="page-link"
-                                        onClick={prevPage}
-                                        aria-label="Previous"
-                                    >
+                                    <button className="page-link" onClick={prevPage} aria-label="Previous">
                                         <span aria-hidden="true">&laquo;</span>
                                     </button>
                                 </li>
 
                                 {getPageNumbers().map((number, index) => (
-                                    <li
-                                        key={index}
-                                        className={`page-item ${number === currentPage ? 'active' : ''} ${number === '...' ? 'disabled' : ''}`}
-                                    >
+                                    <li key={index} className={`page-item ${number === currentPage ? 'active' : ''} ${number === '...' ? 'disabled' : ''}`}>
                                         {number === '...' ? (
                                             <span className="page-link">...</span>
                                         ) : (
-                                            <button
-                                                className="page-link"
-                                                onClick={() => paginate(number)}
-                                            >
+                                            <button className="page-link" onClick={() => paginate(number)}>
                                                 {number}
                                             </button>
                                         )}
@@ -257,11 +242,7 @@ function Card_1() {
                                 ))}
 
                                 <li className={`page-item ${currentPage === totalPages ? 'disabled' : ''}`}>
-                                    <button
-                                        className="page-link"
-                                        onClick={nextPage}
-                                        aria-label="Next"
-                                    >
+                                    <button className="page-link" onClick={nextPage} aria-label="Next">
                                         <span aria-hidden="true">&raquo;</span>
                                     </button>
                                 </li>
