@@ -112,7 +112,7 @@ function Card_1() {
             <div className="row mb-5">
                 {currentCards.map(pet => (
                     <div className="col-md-4 mb-4" key={pet.id}>
-                        <Link to={'/animal'}>
+                        <Link to={`/animal/${pet.id}`}>
                         <div className="card animal-card h-100">
                             <img 
                                 src={pet.photos} 

@@ -12,7 +12,7 @@ function App() {
         <Route path={'/'} element={<Full_page_1/>}/>
         <Route path={'/foundAnimal'} element={<Full_page_2/>}/>
         <Route path={'/myPage'} element={<MyPage/>}/>
-        <Route path={'/animal'} element={<AnimalPage/>}></Route>
+        <Route path={'/animal/:id'} element={<AnimalPage/>}></Route>
       </Routes>    
     </div>                                                    
   );                                                                                                  
