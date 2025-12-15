@@ -27,25 +27,8 @@ function ModalNewPost() {
                                     Looks good!
                                 </div>
                             </div>
+
                             <div className="col-md-4">
-                                <label htmlFor="validationCustom02" className="form-label">Имя (при наличие)</label>
-                                <input type="text" className="form-control" id="validationCustom02" placeholder='например: Барсик' required />
-                                <div className="valid-feedback">
-                                    Looks good!
-                                </div>
-                            </div>
-                            <div className="col-md-4">
-                                <label htmlFor="validationCustomUsername" className="form-label">Пол</label>
-                                <div className="input-group has-validation">
-                                    <select required>
-                                        <option value="null">не определен</option>
-                                        <option value="male">мальчик</option>
-                                        <option value="female">девочка</option>
-                                    </select>
-                                    <div className="invalid-feedback">
-                                        Looks good!
-                                    </div>
-                                </div>
                             </div>
                             <div className="col-md-6">
                                 <label htmlFor="validationCustom03" className="form-label">Место находки</label>
@@ -53,15 +36,8 @@ function ModalNewPost() {
                                 <div className="invalid-feedback">
                                     Укажите место находки
                                 </div>
-                                <label htmlFor="validationCustom03" className="form-label">Примерный возраст</label>
-                                <input type="text" className="form-control" id="validationCustom03" placeholder='например: 5 месяцев'  />
                                 <label htmlFor="validationCustom03" className="form-label">Описание</label>
-                                <textarea type="text" className="form-control" id="validationCustom03" placeholder=''  />
-                                <label htmlFor="validationCustom03" className="form-label">Укажите ваш номер телефона</label>
-                                <input type="tel" className="form-control" id="validationCustom03" placeholder='' required/>
-                                <div className="invalid-feedback">
-                                    введите ваш номер телефона
-                                </div>
+                                <textarea type="text" className="form-control" id="validationCustom03" placeholder='' required/>
                                 <label htmlFor="validationCustom03" className="form-label">Фото найденного животного</label>
                                 <input type="file" className="form-control" id="validationCustom03" placeholder='' required/>
                             </div>
