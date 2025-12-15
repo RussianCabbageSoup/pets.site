@@ -36,11 +36,6 @@ function Header() {
               <Link to={'/foundAnimal'} className="nav-link">Найти животное</Link>
             </li>
             {/* <li className="nav-item me-3">
-              <button type="button" className="btn btn-primary h-100" data-bs-toggle="modal" data-bs-target="#newPost">
-                Сообщить о находке
-              </button>
-            </li> */}
-            {/* <li className="nav-item me-3">
               <button type="button" className="btn btn-primary h-100" data-bs-toggle="modal" data-bs-target="#contacts">
                 Контакты
               </button>
@@ -52,6 +47,11 @@ function Header() {
             </li>
             <li className="nav-item me-3" style={{display: personalAccD}}>
               <Link to={'/myPage'} className="nav-link">Личный кабинет</Link>
+            </li>
+            <li className="nav-item me-3">
+              <button type="button" className="btn btn-primary h-100" data-bs-toggle="modal" data-bs-target="#newPost">
+                Сообщить о находке
+              </button>
             </li>
             <li className="nav-item me-3" style={{display: exit}}>
               <button type="button" className="btn btn-primary h-100" style={{background: 'red'}} data-bs-toggle="modal" data-bs-target="#Exit"/*"#exampleModal"*/>

@@ -60,7 +60,7 @@ function Slider() {
       <div className="carousel-inner">
         {animals.map((animal, index) => (
           <div key={index} className={`carousel-item ${index === 0 ? 'active' : ''}`}>
-            <img src={animal.image} className="d-block w-100" alt={animal.title} style={{ height: "400px", objectFit: "cover" }}/>
+            <img src={animal.image} className="d-block w-100" alt={animal.title} style={{ height: "60vh", objectFit: "cover" }}/>
             <div className="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded p-3">
               <h5>{animal.kind}</h5>
               <p>{animal.description}</p>
