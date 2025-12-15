@@ -11,19 +11,23 @@ function ModalRegistration() {
     const [user_phone, setUser_phone] = useState('');
     const [user_password, setUser_password] = useState('');
 
-    function reg(event) {
-    'use strict'
-    const form = document.getElementById('form')
-    event.preventDefault()
-    event.stopPropagation()    
-    form.classList.add('was-validated')    
+    const [message, setMessage] = useState('');
+    const [success, setSuccess] = useState('none');
+    const [error, setError] = useState('none');
 
-    if (
-        user_name !== '' &&
-        user_email !== '' &&
-        user_phone !== '' &&
-        user_password !== ''
-    )   {
+    function reg(event) {
+        'use strict';
+        const form = document.getElementById('form222');
+        event.preventDefault();
+        event.stopPropagation();
+        form.classList.add('was-validated');  
+
+        if (
+            user_name !== '' &&
+            user_email !== '' &&
+            user_phone !== '' &&
+            user_password !== ''
+        )   {
             var myHeaders = new Headers();
             myHeaders.append("Content-Type", "application/json");
 
@@ -49,17 +53,56 @@ function ModalRegistration() {
                 switch (result) {
                     case 204:
                         console.log('success');
-                        window.location.reload();
+                        setSuccess('flex');
+                        setError('none');
+                        setMessage('Вы успешно зарегистировались!');
+                        
+                        login();
                         
                         break;
                     case 422:
                         console.log("ER 422");
-                        
+                        setError('flex');
+                        setSuccess('none');
+                        setMessage('Введите корректные данные');
+        
                         break;
                 }
-        })
+            })
         .catch(error => console.log('error', error));
         }
+    }
+
+    function login(){
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+
+        var raw = JSON.stringify({
+            "email": user_email,
+            "password": user_password
+        });
+
+        var requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: raw,
+        };
+
+        fetch("https://pets.xn--80ahdri7a.site/api/login", requestOptions)
+        .then(response => response.json())
+        .then(result => {
+            console.log(result)
+
+            if ("data" in result){
+                localStorage.token = result.data.token;
+                console.log('Токен сохранен в localStorage');
+
+                window.location.reload();
+                // const modal = document.getElementById('Enter');
+                // modal.hidden();
+            } 
+        })
+        .catch(error => console.log('error', error));
     }
 
     return (     
@@ -71,7 +114,7 @@ function ModalRegistration() {
                         <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Закрыть" />
                     </div>
                     <div className="modal-body">
-                        <form className="row g-3 needs-validation" noValidate id='form' onSubmit={(e)=>reg(e)} >
+                        <form className="row g-3 needs-validation" noValidate id='form222' onSubmit={(e)=>reg(e)} >
                             <label htmlFor="validationCustom03" className="form-label"><h5>Имя</h5></label>
                             <div className="input-group col-md-6">
                                 <span className="input-group-text" id="addon-wrapping"><img src={icon_human} /></span>
@@ -125,6 +168,12 @@ function ModalRegistration() {
                             </div>
                             <div className="col-12">
                                 <button className="btn btn-primary" type="submit" >Отправить</button>
+                            </div>
+                            <div className="alert alert-danger m-1" role="alert" style={{display: error}}>
+                                {message}
+                            </div>
+                            <div className="alert alert-success m-1" role="alert" style={{display: success}}>
+                                {message}
                             </div>
                         </form>
                     </div>
