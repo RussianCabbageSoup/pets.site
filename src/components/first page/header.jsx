@@ -40,30 +40,30 @@ function Header() {
                 Сообщить о находке
               </button>
             </li> */}
-            <li className="nav-item me-3">
+            {/* <li className="nav-item me-3">
               <button type="button" className="btn btn-primary h-100" data-bs-toggle="modal" data-bs-target="#contacts">
                 Контакты
               </button>
-            </li>
+            </li> */}
             <li className="nav-item me-3" style={{display: loginD}}>
               <button type="button" className="btn btn-primary h-100" data-bs-toggle="modal" data-bs-target="#Enter"/*"#exampleModal"*/>
                 Войти
               </button>
+            </li>
+            <li className="nav-item me-3" style={{display: personalAccD}}>
+              <Link to={'/myPage'} className="nav-link">Личный кабинет</Link>
             </li>
             <li className="nav-item me-3" style={{display: exit}}>
               <button type="button" className="btn btn-primary h-100" style={{background: 'red'}} data-bs-toggle="modal" data-bs-target="#Exit"/*"#exampleModal"*/>
                 Выйти
               </button>
             </li>
-            <li className="nav-item me-3" style={{display: personalAccD}}>
-              <Link to={'/myPage'} className="nav-link">Личный кабинет</Link>
-            </li>
-            <li>
+            {/* <li>
               <form className="d-flex me-3" role="search">
                 <input className="form-control me-2" type="search" placeholder="Поиск" aria-label="Поиск" />
                 <button className="btn btn-outline-success" type="submit">Поиск</button>
               </form>
-            </li>
+            </li> */}
           </ul>
         </div>
       </div>

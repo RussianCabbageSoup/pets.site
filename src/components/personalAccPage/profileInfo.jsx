@@ -160,7 +160,7 @@ function ProfileInfo() {
                             </div>
                             <div className="col-md-10">
                                 <h1 className="h3 mb-1">{userData.name}</h1>
-                                <p className="mb-0">Пользователь с <span id="registrationDays">15</span>{userData.registrationDate}</p>
+                                <p className="mb-0">Пользователь с <span id="registrationDays"></span>{userData.registrationDate}</p>
                                 <p className="mb-0 opacity-75" id="daysSinceRegistration" />
                             </div>
                         </div>

@@ -110,25 +110,6 @@ function Card_1() {
             </div>
             
             <div className="row mb-5">
-                <div className="col-md-4 mb-4">
-                    <div className="card animal-card h-100">
-                        <img src={cat} className="card-img-top" alt="Котенок" style={{ height: '200px', objectFit: 'cover' }}/>
-                        <div className="card-body">
-                            <h5 className="card-title">Котенок, от 12-03-05</h5>
-                            <p className="card-text">
-                                <strong>Район:</strong> Приморский
-                            </p>
-                            <p className="card-text text-muted small">
-                                ID: 0
-                            </p>
-                            <p className="card-text">Маленький белый котенок, найден в районе ул. Пушкина. Очень игривый и ласковый.</p>
-                            <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalCat">
-                                Узнать больше
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
                 {currentCards.map(pet => (
                     <div className="col-md-4 mb-4" key={pet.id}>
                         <Link to={'/animal'}>

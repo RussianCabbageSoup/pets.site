@@ -49,6 +49,7 @@ function ModalRegistration() {
                 switch (result) {
                     case 204:
                         console.log('success');
+                        window.location.reload();
                         
                         break;
                     case 422:
