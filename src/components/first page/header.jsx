@@ -21,12 +21,14 @@ function Header() {
 
   function searchFun(e) {
     e.preventDefault();
-    
-    if (req.trim()) {
-      navigate(`/foundAnimal?search=${encodeURIComponent(req.trim())}`);
-    } else {
-      navigate('/foundAnimal');
+
+    setTimeout(() => {
+      if (req.trim()) {
+        navigate(`/foundAnimal?search=${encodeURIComponent(req.trim())}`);
+      } else {
+        navigate('/foundAnimal');
     }
+    }, 2500);   
   }
 
   return ( 
