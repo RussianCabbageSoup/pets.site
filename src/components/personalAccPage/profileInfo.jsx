@@ -6,10 +6,14 @@ function ProfileInfo() {
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
     const [orders, setOrders] = useState([]);
+
     const [dayCounter, setDayCounter] = useState(0);
+
     const [isLoadingOrders, setIsLoadingOrders] = useState(true);
+
     const [isDeleting, setIsDeleting] = useState(false);
     const [deletingId, setDeletingId] = useState(null);
+    
     const [editingOrder, setEditingOrder] = useState(null);
     const [editForm, setEditForm] = useState({
         kind: '',
@@ -148,16 +152,13 @@ function ProfileInfo() {
     }
 
     async function editPost(orderId) {
-        // Проверяем, есть ли данные для редактирования
         if (!editingOrder || editingOrder.id !== orderId) {
-            // Находим заказ для редактирования
             const orderToEdit = orders.find(order => order.id === orderId);
             if (!orderToEdit) {
                 alert("Объявление не найдено");
                 return;
             }
             
-            // Заполняем форму данными заказа
             setEditForm({
                 kind: orderToEdit.kind || '',
                 mark: orderToEdit.mark || '',
@@ -181,15 +182,12 @@ function ProfileInfo() {
             return;
         }
 
-        // Создаем FormData для отправки файлов
         const formData = new FormData();
         
-        // Добавляем текстовые поля
         formData.append("kind", editForm.kind);
         formData.append("mark", editForm.mark || '');
         formData.append("description", editForm.description);
         
-        // Добавляем файлы, если они есть
         if (editForm.photo1) {
             formData.append("photo1", editForm.photo1);
         }
@@ -202,11 +200,10 @@ function ProfileInfo() {
 
         try {
             const myHeaders = new Headers();
-            // Не устанавливаем Content-Type вручную для FormData - браузер сделает это сам
             myHeaders.append("Authorization", `Bearer ${localStorage.token}`);
 
             const requestOptions = {
-                method: 'POST', // Используем PATCH согласно документации
+                method: 'POST',
                 headers: myHeaders,
                 body: formData,
             };
@@ -217,7 +214,6 @@ function ProfileInfo() {
             console.log("Edit Response:", result);
 
             if (response.status === 200) {
-                // Обновляем заказ в локальном состоянии
                 setOrders(prevOrders => 
                     prevOrders.map(order => 
                         order.id === orderId 
@@ -226,7 +222,6 @@ function ProfileInfo() {
                                 kind: editForm.kind,
                                 mark: editForm.mark,
                                 description: editForm.description,
-                                // Если нужно, можно обновить и фото, но это зависит от ответа сервера
                               } 
                             : order
                     )
