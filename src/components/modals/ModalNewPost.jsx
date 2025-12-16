@@ -5,7 +5,7 @@ function ModalNewPost() {
     const [passwordBlock, setPasswordBlock] = useState('none');
       
     function handleSubmit(e) {
-      if(e.target.checked) {
+      if (e.target.checked) {
         setPasswordBlock('flex');
       }
       else {
@@ -13,12 +13,14 @@ function ModalNewPost() {
       }
     };
 
-    function validationCheck(event) {
+    function submitData(event) {
         'use strict';
         const form = document.getElementById('form');
         event.preventDefault();
         event.stopPropagation();
         form.classList.add('was-validated');
+
+
     }
 
     return ( 
@@ -30,7 +32,7 @@ function ModalNewPost() {
                         <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Закрыть" />
                     </div>
                     <div className="modal-body">
-                        <form className="row g-3 needs-validation" noValidate id='form' onSubmit={(e)=>validationCheck(e)} >
+                        <form className="row g-3 needs-validation" noValidate id='form' onSubmit={(e)=>submitData(e)} >
                             <div className="col-4-md-4">
 
                                 <label htmlFor="validationCustom01" className="form-label">Ваше имя</label>

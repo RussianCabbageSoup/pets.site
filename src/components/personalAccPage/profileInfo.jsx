@@ -7,9 +7,28 @@ function ProfileInfo() {
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
 
+    const [dayCounter, setDayCounter] = useState(0);
+
     useEffect(() => {
         getInf();
     }, []);
+
+    useEffect(() => {
+        if (userData.registrationDate){
+            calcDate();
+        }
+    }, []);
+
+    function calcDate() {
+        const regDate = new Date(userData.registrationDate);
+        const today = new Date();
+
+        regDate.setHours(0, 0, 0, 0);
+        today.setHours(0, 0, 0, 0);
+
+        const diffInMs = today.getTime() - regDate.getTime();
+        setDayCounter(Math.round(diffInMs / (1000 * 60 * 60 * 24)));
+    }
 
     function getInf(){
         const myHeaders = new Headers();
@@ -180,7 +199,7 @@ function ProfileInfo() {
                                     </li>
                                     <li className="list-group-item d-flex justify-content-between">
                                         <span>Дней на сайте:</span>
-                                        <span className="badge bg-primary" id="daysCount">0</span>
+                                        <span className="badge bg-primary" id="daysCount">{dayCounter}</span>
                                     </li>
                                     <li className="list-group-item d-flex justify-content-between">
                                         <span>Объявлений:</span>
