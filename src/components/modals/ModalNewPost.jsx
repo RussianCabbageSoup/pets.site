@@ -63,15 +63,9 @@ function ModalNewPost() {
                                 
                                 <label htmlFor="validationCustom04" className="form-label" style={{display: passwordBlock}}>Пароль</label>
                                 <input type="password" className="form-control" id="validationCustom04" style={{display: passwordBlock}} required />
-                                <div className="invalid-feedback" style={{display: passwordBlock}}>
-                                    Укажите пароль
-                                </div>
 
                                 <label htmlFor="validationCustom05" className="form-label" style={{display: passwordBlock}}>Подтвердите пароль</label>
                                 <input type="password" className="form-control" id="validationCustom05" style={{display: passwordBlock}} required />
-                                <div className="invalid-feedback" style={{display: passwordBlock}}>
-                                    Подтвердите пароль
-                                </div>
 
                                 <label htmlFor="validationCustom06" className="form-label">Тип животного</label>
                                 <input type="text" className="form-control" id="validationCustom06" placeholder="например: кот" required />
