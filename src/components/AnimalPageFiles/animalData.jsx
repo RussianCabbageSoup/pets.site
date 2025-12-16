@@ -11,7 +11,9 @@ function AnimalData() {
         photos: ['','',''],
         date: '',
         description: '',
-        mark: ''
+        mark: '',
+        name: '',
+        phone: ''
     });
 
     useEffect(() => {
@@ -48,7 +50,9 @@ function AnimalData() {
                         ],
                         date: petData.date,
                         description: petData.description,
-                        mark: petData.mark
+                        mark: petData.mark,
+                        name: petData.name,
+                        phone: petData.phone,
                     });
                 }
             })
@@ -78,6 +82,8 @@ function AnimalData() {
                                         <p><strong>Дата:</strong> {animal.date}</p>
                                         <p><strong>Район:</strong> {animal.district}</p>
                                         <p><strong>Маркер:</strong> {animal.mark}</p>
+                                        <p><strong>Имя:</strong> {animal.name}</p>
+                                        <p><strong>Телефон:</strong> {animal.phone}</p>
                                     </div>
                                     <div className="col-md-6">
                                         <p><strong>ID:</strong> {animal.id}</p>
