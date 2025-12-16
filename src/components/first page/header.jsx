@@ -1,10 +1,10 @@
 import img from '../images/logo.png'
 import '../css/myStyle.css';
-import { Link, useNavigate } from 'react-router-dom'; // Добавлен useNavigate
+import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
 function Header() {
-  const navigate = useNavigate(); // Хук для навигации
+  const navigate = useNavigate(); 
   
   const [personalAccD, setPersonalAccD] = useState('none');
   const [loginD, setLoginD] = useState('flex');

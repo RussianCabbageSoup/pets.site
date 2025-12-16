@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link, useLocation, useSearchParams } from 'react-router-dom'; // Добавлены useLocation и useSearchParams
+import { Link, useLocation, useSearchParams } from 'react-router-dom';
 
 function Card_1() {
     const [animalCards, setAnimalCards] = useState([]);
