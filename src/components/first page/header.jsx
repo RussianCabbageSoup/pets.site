@@ -9,6 +9,8 @@ function Header() {
   const [loginD, setLoginD] = useState('flex');
   const [exit, setExit] = useState('none');
 
+  const [req, setReq] = useState('');
+
   useEffect(() => {
     if (localStorage.token && localStorage.token !== ''){
       setPersonalAccD('flex');
@@ -16,6 +18,26 @@ function Header() {
       setLoginD('none');
     }
   }, []);
+
+  function searchFun(e) {
+    e.preventDefault();
+
+    const myHeaders = new Headers();
+
+        const requestOptions = {
+            method: 'GET',
+        };
+
+        fetch(`https://pets.xn--80ahdri7a.site/api/search?query=${req}`, requestOptions)
+            .then(response => response.json())
+            .then(result => {
+              console.log(result);
+
+            })
+            .catch(error => {
+                console.error('Ошибка загрузки:', error);
+            });
+  }
 
   return ( 
     <nav className="navbar navbar-nav navbar-expand-lg navbar-light bg-light mb-2">
@@ -58,12 +80,12 @@ function Header() {
                 Выйти
               </button>
             </li>
-            {/* <li>
-              <form className="d-flex me-3" role="search">
-                <input className="form-control me-2" type="search" placeholder="Поиск" aria-label="Поиск" />
+            <li>
+              <form className="d-flex me-3" role="search" onSubmit={(e) => searchFun(e)}>
+                <input className="form-control me-2" type="search" placeholder="Поиск" aria-label="Поиск" onChange={(e) => setReq(e.target.value)}/>
                 <button className="btn btn-outline-success" type="submit">Поиск</button>
               </form>
-            </li> */}
+            </li>
           </ul>
         </div>
       </div>
