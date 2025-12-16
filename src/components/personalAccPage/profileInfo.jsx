@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 
 function ProfileInfo() {
-
     const [userData, setUserData] = useState([]);
     const [isLogin, setIslogin] = useState(false);
     const [email, setEmail] = useState('');
@@ -9,6 +8,8 @@ function ProfileInfo() {
     const [orders, setOrders] = useState([]);
     const [dayCounter, setDayCounter] = useState(0);
     const [isLoadingOrders, setIsLoadingOrders] = useState(true);
+    const [isDeleting, setIsDeleting] = useState(false);
+    const [deletingId, setDeletingId] = useState(null);
 
     useEffect(() => {
         getInf();
@@ -95,6 +96,46 @@ function ProfileInfo() {
             .finally(() => {
                 setIsLoadingOrders(false);
             });
+    }
+
+    async function deletePost(postId) {
+        if (!window.confirm("Вы уверены, что хотите удалить это объявление?")) {
+            return;
+        }
+
+        setIsDeleting(true);
+        setDeletingId(postId);
+
+        const myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        myHeaders.append("Authorization", `Bearer ${localStorage.token}`);
+
+        try {
+            const response = await fetch(`https://pets.xn--80ahdri7a.site/api/users/orders/${postId}`, {
+                method: 'DELETE',
+                headers: myHeaders,
+            });
+
+            const result = await response.json();
+            console.log("Delete Response:", result);
+
+            if (response.ok) {
+                setOrders(prevOrders => prevOrders.filter(order => order.id !== postId));
+                
+                setUserData(prevData => ({
+                    ...prevData,
+                    ordersCount: prevData.ordersCount - 1
+                }));
+
+                alert("Объявление успешно удалено!");
+            } 
+        } catch (error) {
+            console.error("Error deleting post:", error);
+            alert("Произошла ошибка при удалении объявления");
+        } finally {
+            setIsDeleting(false);
+            setDeletingId(null);
+        }
     }
 
     if (!isLogin) {
@@ -203,39 +244,6 @@ function ProfileInfo() {
         return `https://pets.xn--80ahdri7a.site${photoPath}`;
     }
 
-    function getStatusClass(status) {
-        const statusClassMap = {
-            'onModeration': 'warning',
-            'published': 'success',
-            'rejected': 'danger',
-            'archived': 'secondary'
-        };
-        return statusClassMap[status];
-    }
-
-    function deletePost(){
-        const myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/json");
-        myHeaders.append("Authorization", `Bearer ${localStorage.token}`);
-
-        const requestOptions = {
-            method: 'DELETE',
-            headers: myHeaders,
-        };
-
-        setIsLoadingOrders(true);
-        
-        fetch(`https://pets.xn--80ahdri7a.site/api/users/orders/${id}`, requestOptions)
-            .then(response => response.json())
-            .then(result => {
-                console.log("Response:", result);
-      
-            })
-            .catch(error => {
-                console.error("Error", error);
-            })
-    }
-
     return ( 
         <div>
             <div className="profile-header">
@@ -323,10 +331,7 @@ function ProfileInfo() {
                             <div className="card-body">
                                 {isLoadingOrders ? (
                                     <div className="text-center py-5">
-                                        <div className="spinner-border text-primary" role="status">
-                                            <span className="visually-hidden">Загрузка...</span>
-                                        </div>
-                                        <p className="mt-3">Загрузка объявлений...</p>
+
                                     </div>
                                 ) : orders.length > 0 ? (
                                     <div className="row" id="advertisementsContainer">
@@ -345,15 +350,17 @@ function ProfileInfo() {
                                                                     width: '100%'
                                                                 }}
                                                             />
-                                                            <span className={`badge bg-${getStatusClass(order.status)} position-absolute top-0 end-0 m-2`}>
+                                                            <span className={`badge bg-${order.status} position-absolute top-0 end-0 m-2`}>
                                                                 {order.status}
                                                             </span>
                                                             <div className="position-absolute top-0 start-0 m-2 d-flex gap-1">
-                                                                <button className="btn btn-danger btn-sm" title="Удалить пост">
+                                                                <button 
+                                                                    className="btn btn-danger btn-sm" 
+                                                                    title="Удалить пост"
+                                                                    onClick={() => deletePost(order.id)}
+                                                                    disabled={isDeleting && deletingId === order.id}
+                                                                >
                                                                     <i className="bi bi-trash me-1"></i>Удалить
-                                                                </button>
-                                                                <button className="btn btn-warning btn-sm" title="Редактировать пост">
-                                                                    <i className="bi bi-pencil me-1"></i>Редактировать
                                                                 </button>
                                                             </div>
                                                         </div>
@@ -361,10 +368,10 @@ function ProfileInfo() {
                                                     <div className="card-body">
                                                         <h5 className="card-title">
                                                             <i className="bi bi-person-circle me-2"></i>
-                                                            {order.kind || 'Тип не указан'}
+                                                            {order.kind}
                                                         </h5>
                                                         <p className="card-text text-muted small">
-                                                            {order.description || 'Описание отсутствует'}
+                                                            {order.description}
                                                         </p>
                                                         <div className="mt-3">
                                                             {order.mark && (
