@@ -17,7 +17,7 @@ function ProfileInfo() {
         if (userData.registrationDate){
             calcDate();
         }
-    }, []);
+    }, [userData.registrationDate]);
 
     function calcDate() {
         const regDate = new Date(userData.registrationDate);
