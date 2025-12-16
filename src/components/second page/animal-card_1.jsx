@@ -114,14 +114,6 @@ function Card_1() {
         applyFilters();
     };
 
-    const clearSearch = () => {
-        setFilters(prev => ({
-            ...prev,
-            description: ''
-        }));
-        setSearchParams({});
-    };
-
     const indexOfLastCard = currentPage * cardsPerPage;
     const indexOfFirstCard = indexOfLastCard - cardsPerPage;
     const currentCards = filteredCards.slice(indexOfFirstCard, indexOfLastCard);
@@ -228,13 +220,7 @@ function Card_1() {
             {filteredCards.length === 0 ? (
                 <div className="alert alert-warning text-center">
                     <h4>Нет совпадений</h4>
-                    <p>По вашему запросу "{filters.description}" ничего не найдено.</p>
-                    <button 
-                        className="btn btn-primary" 
-                        onClick={clearSearch}
-                    >
-                        Показать всех животных
-                    </button>
+                    <p>По вашему запросу ничего не найдено.</p>
                 </div>
             ) : (
                 <>
