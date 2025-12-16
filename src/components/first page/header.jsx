@@ -1,14 +1,14 @@
 import img from '../images/logo.png'
 import '../css/myStyle.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom'; // Добавлен useNavigate
 import { useState, useEffect } from 'react';
 
 function Header() {
-
+  const navigate = useNavigate(); // Хук для навигации
+  
   const [personalAccD, setPersonalAccD] = useState('none');
   const [loginD, setLoginD] = useState('flex');
   const [exit, setExit] = useState('none');
-
   const [req, setReq] = useState('');
 
   useEffect(() => {
@@ -21,22 +21,12 @@ function Header() {
 
   function searchFun(e) {
     e.preventDefault();
-
-    const myHeaders = new Headers();
-
-        const requestOptions = {
-            method: 'GET',
-        };
-
-        fetch(`https://pets.xn--80ahdri7a.site/api/search?query=${req}`, requestOptions)
-            .then(response => response.json())
-            .then(result => {
-              console.log(result);
-
-            })
-            .catch(error => {
-                console.error('Ошибка загрузки:', error);
-            });
+    
+    if (req.trim()) {
+      navigate(`/foundAnimal?search=${encodeURIComponent(req.trim())}`);
+    } else {
+      navigate('/foundAnimal');
+    }
   }
 
   return ( 
@@ -57,11 +47,6 @@ function Header() {
             <li className="nav-item me-3">
               <Link to={'/foundAnimal'} className="nav-link">Найти животное</Link>
             </li>
-            {/* <li className="nav-item me-3">
-              <button type="button" className="btn btn-primary h-100" data-bs-toggle="modal" data-bs-target="#contacts">
-                Контакты
-              </button>
-            </li> */}
             <li className="nav-item me-3" style={{display: loginD}}>
               <button type="button" className="btn btn-primary h-100" data-bs-toggle="modal" data-bs-target="#Enter"/*"#exampleModal"*/>
                 Войти
@@ -81,8 +66,15 @@ function Header() {
               </button>
             </li>
             <li>
-              <form className="d-flex me-3" role="search" onSubmit={(e) => searchFun(e)}>
-                <input className="form-control me-2" type="search" placeholder="Поиск" aria-label="Поиск" onChange={(e) => setReq(e.target.value)}/>
+              <form className="d-flex me-3" role="search" onSubmit={searchFun}>
+                <input 
+                  className="form-control me-2" 
+                  type="search" 
+                  placeholder="Поиск" 
+                  aria-label="Поиск" 
+                  value={req}
+                  onChange={(e) => setReq(e.target.value)}
+                />
                 <button className="btn btn-outline-success" type="submit">Поиск</button>
               </form>
             </li>
@@ -90,7 +82,7 @@ function Header() {
         </div>
       </div>
     </nav>
-);
+  );
 }
 
 export default Header;

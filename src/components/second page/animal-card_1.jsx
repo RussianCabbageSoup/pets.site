@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router';
+import { Link, useLocation, useSearchParams } from 'react-router-dom'; // Добавлены useLocation и useSearchParams
 
 function Card_1() {
     const [animalCards, setAnimalCards] = useState([]);
@@ -8,12 +8,26 @@ function Card_1() {
     const [cardsPerPage] = useState(6);
     const [filters, setFilters] = useState({
         district: '',
-        kind: ''
+        kind: '',
+        description: ''
     });
+
+    const location = useLocation();
+    const [searchParams, setSearchParams] = useSearchParams();
 
     useEffect(() => {
         getCards();
     }, []);
+
+    useEffect(() => {
+        const searchQuery = searchParams.get('search');
+        if (searchQuery) {
+            setFilters(prev => ({
+                ...prev,
+                description: searchQuery
+            }));
+        }
+    }, [location, searchParams]);
 
     useEffect(() => {
         applyFilters();
@@ -69,6 +83,12 @@ function Card_1() {
             );
         }
 
+        if (filters.description.trim() !== '') {
+            filtered = filtered.filter(card => 
+                card.description.toLowerCase().includes(filters.description.toLowerCase().trim())
+            );
+        }
+
         setFilteredCards(filtered);
         setCurrentPage(1);
     };
@@ -79,11 +99,27 @@ function Card_1() {
             ...prev,
             [id.replace('Search', '').toLowerCase()]: value
         }));
+        
+        if (id === 'descriptionSearch') {
+            if (value.trim()) {
+                setSearchParams({ search: value.trim() });
+            } else {
+                setSearchParams({});
+            }
+        }
     };
 
     const handleSearchSubmit = (e) => {
         e.preventDefault();
         applyFilters();
+    };
+
+    const clearSearch = () => {
+        setFilters(prev => ({
+            ...prev,
+            description: ''
+        }));
+        setSearchParams({});
     };
 
     const indexOfLastCard = currentPage * cardsPerPage;
@@ -185,15 +221,34 @@ function Card_1() {
                             />
                         </div>
                     </div>
+                    
                 </form>
             </div>
 
             {filteredCards.length === 0 ? (
                 <div className="alert alert-warning text-center">
                     <h4>Нет совпадений</h4>
+                    <p>По вашему запросу "{filters.description}" ничего не найдено.</p>
+                    <button 
+                        className="btn btn-primary" 
+                        onClick={clearSearch}
+                    >
+                        Показать всех животных
+                    </button>
                 </div>
             ) : (
                 <>
+                    <div className="row mb-4">
+                        <div className="col-12">
+                            <div className="alert alert-success">
+                                Найдено животных: <strong>{filteredCards.length}</strong>
+                                {filters.description && (
+                                    <span> по запросу: <strong>"{filters.description}"</strong></span>
+                                )}
+                            </div>
+                        </div>
+                    </div>
+
                     <div className="row mb-5">
                         {currentCards.map(pet => (
                             <div className="col-md-4 mb-4" key={pet.id}>
