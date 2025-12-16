@@ -213,6 +213,29 @@ function ProfileInfo() {
         return statusClassMap[status];
     }
 
+    function deletePost(){
+        const myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        myHeaders.append("Authorization", `Bearer ${localStorage.token}`);
+
+        const requestOptions = {
+            method: 'DELETE',
+            headers: myHeaders,
+        };
+
+        setIsLoadingOrders(true);
+        
+        fetch(`https://pets.xn--80ahdri7a.site/api/users/orders/${id}`, requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                console.log("Response:", result);
+      
+            })
+            .catch(error => {
+                console.error("Error", error);
+            })
+    }
+
     return ( 
         <div>
             <div className="profile-header">
@@ -325,6 +348,14 @@ function ProfileInfo() {
                                                             <span className={`badge bg-${getStatusClass(order.status)} position-absolute top-0 end-0 m-2`}>
                                                                 {order.status}
                                                             </span>
+                                                            <div className="position-absolute top-0 start-0 m-2 d-flex gap-1">
+                                                                <button className="btn btn-danger btn-sm" title="Удалить пост">
+                                                                    <i className="bi bi-trash me-1"></i>Удалить
+                                                                </button>
+                                                                <button className="btn btn-warning btn-sm" title="Редактировать пост">
+                                                                    <i className="bi bi-pencil me-1"></i>Редактировать
+                                                                </button>
+                                                            </div>
                                                         </div>
                                                     )}
                                                     <div className="card-body">
