@@ -2,6 +2,17 @@ import { useState } from "react";
 
 function ModalNewPost() {
 
+    const [passwordBlock, setPasswordBlock] = useState('none');
+      
+    function handleSubmit(e) {
+      if(e.target.checked) {
+        setPasswordBlock('flex');
+      }
+      else {
+        setPasswordBlock('none');
+      }
+    };
+
     function validationCheck(event) {
         'use strict';
         const form = document.getElementById('form');
@@ -29,19 +40,19 @@ function ModalNewPost() {
                                 </div>
 
                                 <label htmlFor="validationCustom02" className="form-label">Ваш номер телефона</label>
-                                <input type="text" className="form-control" id="validationCustom02" required />
+                                <input type="tel" className="form-control" id="validationCustom02" required />
                                 <div className="invalid-feedback">
                                     Укажите ваш номер телефона
                                 </div>
 
                                 <label htmlFor="validationCustom03" className="form-label">Ваш email</label>
-                                <input type="text" className="form-control" id="validationCustom03" required />
+                                <input type="email" className="form-control" id="validationCustom03" required />
                                 <div className="invalid-feedback">
                                     Укажите ваш email
                                 </div>
 
                                 <div className="form-check">
-                                    <input className="form-check-input" type="checkbox" defaultValue id="invalidCheck" />
+                                    <input className="form-check-input" type="checkbox" defaultValue id="invalidCheck" onChange={(e) => handleSubmit(e)} />
                                     <label className="form-check-label" htmlFor="invalidCheck">
                                         Прикрепить аккаунт / зарегистироваться
                                     </label>
@@ -49,16 +60,16 @@ function ModalNewPost() {
                                         Обязательно
                                     </div>
                                 </div>
-
-                                <label htmlFor="validationCustom04" className="form-label">Пароль</label>
-                                <input type="text" className="form-control" id="validationCustom04" required />
-                                <div className="invalid-feedback">
+                                
+                                <label htmlFor="validationCustom04" className="form-label" style={{display: passwordBlock}}>Пароль</label>
+                                <input type="password" className="form-control" id="validationCustom04" style={{display: passwordBlock}} required />
+                                <div className="invalid-feedback" style={{display: passwordBlock}}>
                                     Укажите пароль
                                 </div>
 
-                                <label htmlFor="validationCustom05" className="form-label">Подтвердите пароль</label>
-                                <input type="text" className="form-control" id="validationCustom05" required />
-                                <div className="invalid-feedback">
+                                <label htmlFor="validationCustom05" className="form-label" style={{display: passwordBlock}}>Подтвердите пароль</label>
+                                <input type="password" className="form-control" id="validationCustom05" style={{display: passwordBlock}} required />
+                                <div className="invalid-feedback" style={{display: passwordBlock}}>
                                     Подтвердите пароль
                                 </div>
 
@@ -93,8 +104,8 @@ function ModalNewPost() {
 
                             <div className="col-12">
                                 <div className="form-check">
-                                    <input className="form-check-input" type="checkbox" defaultValue id="invalidCheck" required />
-                                    <label className="form-check-label" htmlFor="invalidCheck">
+                                    <input className="form-check-input" type="checkbox" defaultValue id="invalidCheck1" required />
+                                    <label className="form-check-label" htmlFor="invalidCheck1">
                                         Я даю разрешение на обработку персональных данных
                                     </label>
                                     <div className="invalid-feedback">
