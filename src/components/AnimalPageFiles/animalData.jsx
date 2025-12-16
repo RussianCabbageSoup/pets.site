@@ -4,7 +4,15 @@ import '../css/an-page.css';
 
 function AnimalData() {
     const { id } = useParams();
-    const [animal, setAnimal] = useState('');
+    const [animal, setAnimal] = useState({ 
+        id: '',
+        district: '',
+        kind: '',
+        photos: ['','',''],
+        date: '',
+        description: '',
+        mark: ''
+    });
 
     useEffect(() => {
         getAnimalDetails();
@@ -28,11 +36,16 @@ function AnimalData() {
                 
                 if (result.data.pet) {
                     const petData = result.data.pet;
+
                     setAnimal({
                         id: petData.id,
                         district: petData.district,
                         kind: petData.kind,
-                        photos: "https://pets.xn--80ahdri7a.site/" + petData.photos,
+                        photos: [
+                            "https://pets.xn--80ahdri7a.site/" + petData.photos[0],
+                            "https://pets.xn--80ahdri7a.site/" + petData.photos[1],
+                            "https://pets.xn--80ahdri7a.site/" + petData.photos[2],
+                        ],
                         date: petData.date,
                         description: petData.description,
                         mark: petData.mark
@@ -50,7 +63,7 @@ function AnimalData() {
                 <div className="row g-0">
                     <div className="col-md-6">
                         <img 
-                            src={animal.photos} 
+                            src={animal.photos[0]} 
                             className="img-fluid rounded-start animal-photo"
                             alt={animal.kind}
                             style={{ height: '400px', width: '100%', objectFit: 'cover' }}
